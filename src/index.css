@@ -1,0 +1,34 @@
+.SidebarCard {
+  width: 20% !important;
+}
+
+.homepagegridsidebargird {
+  width: 100%;
+  position: fixed;
+}
+
+.ThumbsUpButtons {
+  border-radius: 50px;
+}
+
+.textTitle {
+  cursor: pointer;
+}
+
+.mantine-Header {
+  position: fixed;
+}
+
+.search-bar {
+  width: 80% !important;
+}
+
+@media only screen and (min-device-width: 480px) {
+  .search-bar {
+    width: 150% !important;
+  }
+}
+
+.application-header {
+  position: fixed;
+}

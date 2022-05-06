@@ -1,10 +1,5 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useRoutes,
-  Navigate,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useRoutes } from "react-router-dom";
 
 import HomePage from "./pages/index";
 import Login from "./pages/login";
@@ -12,7 +7,6 @@ import Post from "./pages/post";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
-import React, { useEffect, useState } from "react";
 
 function Router() {
   let routes = useRoutes([
@@ -23,14 +17,9 @@ function Router() {
           <HomePage />
         </RequireAuth>
       ),
-      children: [
-        {
-          path: "post",
-          element: <Post />,
-        },
-      ],
     },
     { path: "login", element: <Login /> },
+    { path: "post/:slug", element: <Post /> },
   ]);
 
   return routes;
@@ -55,8 +44,6 @@ function RequireAuth({ children }) {
   useEffect(() => {
     getUser();
   }, []);
-
-  console.log(user);
 
   if (!waiting) {
     if (!user) {

@@ -1,8 +1,26 @@
+import React, { useEffect, useState } from "react";
 import { Grid, Container, SimpleGrid, Button, Group } from "@mantine/core";
 import ForumCard from "../components/ForumCard/card";
+import LoadingPost from "../components/ForumCard/loading";
+
 import SideBarRight from "../components/slideBar-right/sidebar";
+import { FetchUserFeed } from "../services/user.feed";
 
 export default function HomePage() {
+  const [questions, setQuestions] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    let data = await FetchUserFeed();
+    setQuestions(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+    console.log(questions);
+  }, []);
+
   return (
     <div>
       <Container p={0} m={0} pl={10} size={2000}>
@@ -16,17 +34,28 @@ export default function HomePage() {
               <Button> Ask Question </Button>
             </Group>
 
-            <ForumCard />
-            <ForumCard />
-            <ForumCard />
-            <ForumCard />
-            <ForumCard />
-            <ForumCard />
-            <ForumCard />
+            {loading ? (
+              <>
+                {[...Array(10)].map(() => (
+                  <LoadingPost />
+                ))}
+              </>
+            ) : (
+              <>
+                {questions ? (
+                  <>
+                    {questions.map((q) => {
+                      return <ForumCard props={q} />;
+                    })}
+                  </>
+                ) : (
+                  <h1> no questions found please upvote more posts </h1>
+                )}
+              </>
+            )}
           </Grid.Col>
           <Grid.Col xs={2.5}>
             <SimpleGrid className="homepagegridsidebargird">
-              <SideBarRight />
               <SideBarRight />
             </SimpleGrid>
           </Grid.Col>

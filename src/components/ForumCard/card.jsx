@@ -9,7 +9,7 @@ import {
   Code,
 } from "@mantine/core";
 
-function ForumCard() {
+function ForumCard({ props }) {
   const theme = useMantineTheme();
 
   const secondaryColor =
@@ -21,20 +21,29 @@ function ForumCard() {
         <Grid columns={24} gutter="xs">
           <Grid.Col span={3}>
             {" "}
-            <Text size="sm">0 votes</Text>
+            <Text size="sm">{props.up_vote_count} votes</Text>
           </Grid.Col>
           <Grid.Col span={18}>
-            <Text weight={500} className="textTitle">
-              Norway Fjord Adventures
-            </Text>
+            <Anchor href={`/post/${props.slug}`}>
+              <Text weight={500} className="textTitle" lineClamp={1}>
+                {props.title}
+              </Text>
+            </Anchor>
           </Grid.Col>
           <Grid.Col span={3}>{}</Grid.Col>
         </Grid>
 
         <Grid columns={24}>
           <Grid.Col span={3}>
-            {" "}
-            <Code color="teal">1 answer</Code>{" "}
+            {props.is_answered ? (
+              <>
+                <Code color="teal">{props.answer_count} answer</Code>{" "}
+              </>
+            ) : (
+              <>
+                <Code color="white">{props.answer_count} answer</Code>
+              </>
+            )}
           </Grid.Col>
           <Grid.Col span={18}>
             <Text
@@ -42,13 +51,7 @@ function ForumCard() {
               style={{ color: secondaryColor, lineHeight: 1.5 }}
               lineClamp={2}
             >
-              With Fjord Tours you can explore more of the magical fjord
-              landscapes with tours and activities on and around the fjords of
-              Norway With Fjord Tours you can explore more of the magical fjord
-              landscapes with tours and activities on and around the fjords of
-              Norway With Fjord Tours you can explore more of the magical fjord
-              landscapes with tours and activities on and around the fjords of
-              Norway
+              {props.body}
             </Text>
           </Grid.Col>
           <Grid.Col span={3}>{}</Grid.Col>
@@ -56,24 +59,26 @@ function ForumCard() {
           <Grid.Col span={3}>
             {" "}
             <Text size="sm" color="dimmed">
-              0 views
+              {props.view_count} views
             </Text>
           </Grid.Col>
           <Grid.Col span={18}>
             <Group>
-              <Badge>Badge</Badge>
-              <Badge>Badge</Badge>
-              <Badge>Badge</Badge>
+              {props.tags.map((tag) => {
+                <Badge>{tag.name}</Badge>;
+              })}
             </Group>
           </Grid.Col>
           <Grid.Col span={3}>
             <Group>
               <div>
+                {/*
                 <Anchor href="//" target="_blank">
                   John Doe
                 </Anchor>
+          */}
                 <Text size="xs" color="dimmed">
-                  2022-01-90
+                  {new Date(props.created_at).toDateString()}
                 </Text>
               </div>
             </Group>

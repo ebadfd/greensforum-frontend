@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import "./App.css";
 import Router from "./Router";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
-import "./index.css"
+import "./index.css";
 
 function App() {
   const [colorScheme, setColorScheme] = useState("dark");

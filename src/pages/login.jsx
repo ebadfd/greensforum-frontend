@@ -15,13 +15,15 @@ import { useLocalStorage } from "@mantine/hooks";
 
 import { config } from "../config";
 import { setAccessToken } from "../authtoken";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [appErrors, setAppErrors] = useState(null);
   const [refreshToken, setRefreshToken] = useLocalStorage({
     key: "refresh_token",
   });
-  const [userType, setUsertype] = useLocalStorage({ key: "user_type" });
+  const [saveTokens, setSaveTokens] = useLocalStorage({ key: "auth" });
+  const navigate = useNavigate();
 
   const form = useForm({
     initialValues: {
@@ -51,14 +53,12 @@ export default function Login() {
       .then((result) => {
         if (result.error) {
           setAppErrors(result.error);
+          return;
         } else {
-          console.log(result.auth_token, result.refresh_token);
-          setRefreshToken(result.refresh_token);
           setAccessToken(result.auth_token);
-          setUsertype(result.user_type);
+          setSaveTokens(result);
           setAppErrors(null);
-
-          Router.push({ pathname: "/" });
+          navigate("/", { replace: true });
         }
       })
       .catch((error) => console.log("error", error));

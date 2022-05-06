@@ -4,6 +4,9 @@ import Router from "./Router";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
 import "./index.css";
 
+import { HeaderMiddle } from "./components/Header/Header";
+import attributes from "./components/Header/attributes.json";
+
 function App() {
   const [colorScheme, setColorScheme] = useState("dark");
   const toggleColorScheme = (value) =>
@@ -19,6 +22,7 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
+        <HeaderMiddle links={attributes} />
         <Router />
       </MantineProvider>
     </ColorSchemeProvider>

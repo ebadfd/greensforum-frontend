@@ -14,7 +14,6 @@ import { useForm } from "@mantine/form";
 import { useLocalStorage } from "@mantine/hooks";
 
 import { config } from "../config";
-import { setAccessToken } from "../authtoken";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -55,7 +54,6 @@ export default function Login() {
           setAppErrors(result.error);
           return;
         } else {
-          setAccessToken(result.auth_token);
           setSaveTokens(result);
           setAppErrors(null);
           navigate("/", { replace: true });

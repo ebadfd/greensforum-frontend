@@ -1,3 +1,4 @@
+import jwt_decode from "jwt-decode";
 import { config } from "./config";
 
 // check if user's tokens are valid or not
@@ -13,23 +14,28 @@ export const isValidToken = () => {
     return false;
   }
 
-  const decodedAuthToken = parseJwt(values.auth_token);
-  const decodedRefreshToken = parseJwt(values.refresh_token);
+  const decodedAuthToken = jwt_decode(values.auth_token);
+  const decodedRefreshToken = jwt_decode(values.refresh_token);
 
   // auth token expired.
   if (decodedAuthToken.exp * 1000 < Date.now()) {
     // check if refresh token is valid
     if (decodedRefreshToken.exp * 1000 < Date.now()) {
       // if both are invalid there's nothing we can do force re-login
+      console.log("token invalid");
       return false;
+    } else {
+      let updatestatus = updateTokens(values.refresh_token);
+      console.log("=============== updaving token ===================");
+      console.log(updatestatus);
+      return updatestatus;
     }
-    // create a refresh_token
-    return updateTokens(values.refresh_token);
   }
+  return true;
 };
 
 // return the auth values from localstorage
-const getAuthStorage = () => {
+export const getAuthStorage = () => {
   let values = JSON.parse(localStorage.getItem("auth"));
   return values;
 };
@@ -37,15 +43,6 @@ const getAuthStorage = () => {
 // update the auth token
 const updateAuthToken = (payload) => {
   localStorage.setItem("auth", JSON.stringify(payload));
-};
-
-// parse jwt to decode it and send
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
-    return null;
-  }
 };
 
 // in case user auth token is expired update the token using this function

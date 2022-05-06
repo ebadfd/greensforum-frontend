@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Container,
-  SimpleGrid,
-  Button,
-  Group,
-  Skeleton,
-  Card,
-} from "@mantine/core";
+import { Grid, Container, SimpleGrid, Button, Group } from "@mantine/core";
 import ForumCard from "../components/ForumCard/card";
 import LoadingPost from "../components/ForumCard/loading";
 
@@ -51,17 +43,13 @@ export default function HomePage() {
             ) : (
               <>
                 {questions ? (
-                    <>
-  {questions.map((q) => {
-                        return(
-                            <ForumCard props={q} />
-                        )
-                        
+                  <>
+                    {questions.map((q) => {
+                      return <ForumCard props={q} />;
                     })}
-
-                    </>
-                                  ):(
-                    <h1> no questions found please upvote more posts </h1>
+                  </>
+                ) : (
+                  <h1> no questions found please upvote more posts </h1>
                 )}
               </>
             )}
@@ -76,5 +64,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-

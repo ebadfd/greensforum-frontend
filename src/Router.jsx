@@ -17,14 +17,9 @@ function Router() {
           <HomePage />
         </RequireAuth>
       ),
-      children: [
-        {
-          path: "post",
-          element: <Post />,
-        },
-      ],
     },
     { path: "login", element: <Login /> },
+    { path: "post/:slug", element: <Post /> },
   ]);
 
   return routes;
@@ -49,8 +44,6 @@ function RequireAuth({ children }) {
   useEffect(() => {
     getUser();
   }, []);
-
-  console.log(user);
 
   if (!waiting) {
     if (!user) {

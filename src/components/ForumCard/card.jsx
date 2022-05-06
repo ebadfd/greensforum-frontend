@@ -24,9 +24,11 @@ function ForumCard({ props }) {
             <Text size="sm">{props.up_vote_count} votes</Text>
           </Grid.Col>
           <Grid.Col span={18}>
-            <Text weight={500} className="textTitle" lineClamp={1}>
-              {props.title}
-            </Text>
+            <Anchor href={`/post/${props.slug}`}>
+              <Text weight={500} className="textTitle" lineClamp={1}>
+                {props.title}
+              </Text>
+            </Anchor>
           </Grid.Col>
           <Grid.Col span={3}>{}</Grid.Col>
         </Grid>
@@ -76,7 +78,7 @@ function ForumCard({ props }) {
                 </Anchor>
           */}
                 <Text size="xs" color="dimmed">
-      {new Date(props.created_at).toDateString()}
+                  {new Date(props.created_at).toDateString()}
                 </Text>
               </div>
             </Group>

@@ -37,37 +37,29 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function BadgeCard({ image, title, description, country, badges }) {
+export function BadgeCard({ image, username, description, email, pfp }) {
   const { classes } = useStyles();
-  const theme = useMantineTheme();
-
-  const features = badges.map((badge) => (
-    <Badge
-      color={theme.colorScheme === "dark" ? "dark" : "gray"}
-      key={badge.label}
-      leftSection={badge.emoji}
-    >
-      {badge.label}
-    </Badge>
-  ));
-
   return (
     <Card withBorder radius="md" p="md" className="SidebarCard">
       <Card.Section>
-        <Image src={image} alt={title} height={180} />
+        <Image src={image} alt={username} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
         <Group>
-          <Avatar color="cyan" radius="xl">
-            KR
+          <Avatar color="cyan" radius="lg" src={pfp}>
+            {username}
           </Avatar>
           <Text size="lg" weight={500}>
-            {title}
+            {username}
           </Text>
         </Group>
         <Text size="sm" mt="xs">
           {description}
+        </Text>
+
+        <Text size="sm" mt="xs">
+          {email}
         </Text>
       </Card.Section>
 

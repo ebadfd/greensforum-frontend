@@ -4,6 +4,7 @@ import { useRoutes } from "react-router-dom";
 import HomePage from "./pages/index";
 import Login from "./pages/login";
 import Post from "./pages/post";
+import Register from "./pages/register";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -19,6 +20,7 @@ function Router() {
       ),
     },
     { path: "login", element: <Login /> },
+    { path: "register", element: <Register /> },
     { path: "post/:slug", element: <Post /> },
   ]);
 

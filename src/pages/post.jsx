@@ -8,19 +8,15 @@ import {
   useMantineTheme,
   Group,
   Button,
-  Divider,
   Textarea,
   Breadcrumbs,
   Anchor,
   Badge,
   Stack,
   Paper,
-  Code,
   ScrollArea,
 } from "@mantine/core";
-import { MdOutlineThumbUpAlt, MdOutlineThumbDownAlt } from "react-icons/md";
 import { useForm } from "@mantine/form";
-import SideBarRight from "../components/slideBar-right/sidebar";
 import { CommentCard } from "../components/Comment/comment";
 import { useParams } from "react-router-dom";
 import { GetPostbySlug } from "../services/post.slug";
@@ -42,13 +38,12 @@ export default function Post() {
   const form = useForm({
     initialValues: {
       comment: "",
-      postId: "1234",
     },
   });
 
   const items = [
     { title: "Home", href: "/" },
-    { title: "post-title", href: "#" },
+    { title: slug, href: "#" },
   ].map((item, index) => (
     <Anchor href={item.href} key={index}>
       {item.title}
@@ -201,13 +196,11 @@ export default function Post() {
                   <ScrollArea style={{ height: 500 }} mt="lg" scrollbarSize={6}>
                     {question.answers ? (
                       <>
-                        {question.answers > 0 ? (
+                        {question.answer_count > 0 ? (
                           <>
-                            <CommentCard />
-                            <CommentCard />
-                            <CommentCard />
-                            <CommentCard />
-                            <CommentCard />
+                            {question.answers.map((item) => {
+                              return <CommentCard props={item} />;
+                            })}
                           </>
                         ) : (
                           <Text>

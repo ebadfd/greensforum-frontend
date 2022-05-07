@@ -1,51 +1,27 @@
-import React from "react";
-import {
-  Text,
-  Group,
-  Badge,
-  Paper,
-  useMantineTheme,
-  Divider,
-  Button,
-  Avatar,
-} from "@mantine/core";
-import { MdOutlineThumbUpAlt, MdOutlineThumbDownAlt } from "react-icons/md";
+import { Text, Paper, SimpleGrid, useMantineTheme } from "@mantine/core";
 
-export function CommentCard() {
+export function CommentCard({ props }) {
   const theme = useMantineTheme();
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
 
   return (
     <Paper radius="md" withBorder mt={20}>
-      <Group style={{ marginBottom: 5, marginTop: theme.spacing.sm }} p={10}>
-        <Avatar color="cyan" radius="xl">
-          JD
-        </Avatar>
-        <Text>John Doe</Text>
-      </Group>
-      <Group position="apart" p={20}>
-        <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-          With Fjord Tours you can explore more of the magical fjord landscapes
-          with tours and activities on and around the fjords of Norway With
-          Fjord Tours you can explore more of the magical fjord landscapes with
-          tours and activities on and around the fjords of Norway With Fjord
-          Tours you can explore more of the magical fjord landscapes with tours
-          and activities on and around the fjords of Norway
-        </Text>
-      </Group>
+      <SimpleGrid cols={1} spacing="xs">
+        <Paper p="lg">
+          <Text size="lg" weight={500}>
+            {props.title}
+          </Text>
 
-      <Divider my="sm" mt={20} variant="dotted" m={20} />
+          <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+            {props.body}
+          </Text>
 
-      <Group style={{ marginBottom: 5, marginTop: theme.spacing.sm }} p={10}>
-        <Button variant="light" className="ThumbsUpButtons">
-          <MdOutlineThumbUpAlt />
-        </Button>
-
-        <Button variant="light" className="ThumbsUpButtons" color="red">
-          <MdOutlineThumbDownAlt />
-        </Button>
-      </Group>
+          <Text size="xs" color="dimmed" mt={10}>
+            {new Date(props.created_at).toDateString()}
+          </Text>
+        </Paper>
+      </SimpleGrid>
     </Paper>
   );
 }

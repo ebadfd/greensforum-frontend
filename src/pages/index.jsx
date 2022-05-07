@@ -42,7 +42,7 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                {questions ? (
+                {questions.length > 0 ? (
                   <>
                     {questions.map((q) => {
                       return <ForumCard props={q} />;

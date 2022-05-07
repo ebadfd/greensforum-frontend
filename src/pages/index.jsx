@@ -5,6 +5,7 @@ import LoadingPost from "../components/ForumCard/loading";
 
 import SideBarRight from "../components/slideBar-right/sidebar";
 import { FetchUserFeed } from "../services/user.feed";
+import { Link } from "react-router-dom"
 
 export default function HomePage() {
   const [questions, setQuestions] = useState(null);
@@ -31,7 +32,7 @@ export default function HomePage() {
           <Grid.Col xs={6.2}>
             <Group position="apart">
               <h1> Top Questions For You </h1>
-              <Button> Ask Question </Button>
+              <Button component={Link} to="/create"> Ask Question </Button>
             </Group>
 
             {loading ? (

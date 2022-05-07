@@ -80,6 +80,10 @@ export default function CreatePost() {
 
             <Text size="xs">describe what your question is about</Text>
           </Paper>
+
+          <Button size="sm" mt={20}>
+            Post your Question
+          </Button>
         </Grid.Col>
         <Grid.Col span={2}>
           <div style={{ width: 340, margin: "auto" }}>

@@ -20,6 +20,7 @@ import LoadingPost from "../components/ForumCard/loading";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { GetCollectivebyinfo } from "../services/collective.one";
+import { ImageActionBanner } from "../components/collectiveCard/newcard";
 
 export default function CollectiveInformation() {
   const [questions, setQuestions] = useState(null);
@@ -69,22 +70,10 @@ export default function CollectiveInformation() {
         <Grid mt={10}>
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
-            <Paper shadow="xl" radius="md" p="md" withBorder>
+            <Paper shadow="xl" radius="md">
               <Grid grow gutter="xs">
                 <Grid.Col span={1}>
-                  <Image
-                    radius="md"
-                    src={questions.logo_url}
-                    alt={questions.name}
-                  />
-                </Grid.Col>
-                <Grid.Col span={10}>
-                  <Title order={2} ml={20} mt={20}>
-                    {questions.name}
-                  </Title>
-                  <Text size="md" ml={20} mt={10}>
-                    {questions.description}
-                  </Text>
+                  <ImageActionBanner props={questions} />
                 </Grid.Col>
               </Grid>
             </Paper>

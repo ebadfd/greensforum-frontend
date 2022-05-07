@@ -9,6 +9,8 @@ import {
   Skeleton,
 } from "@mantine/core";
 import { CardWithStats } from "../components/collectiveCard/card";
+import { ImageActionBanner } from "../components/collectiveCard/newcard";
+
 import { ViewCollectives } from "../services/collective.all";
 
 const useStyles = createStyles((theme) => ({
@@ -79,7 +81,7 @@ export default function Collectives() {
             {collectives.length > 0 ? (
               <>
                 {collectives.map((item) => {
-                  return <CardWithStats props={item} />;
+                  return <ImageActionBanner props={item} />;
                 })}
               </>
             ) : (

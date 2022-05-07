@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Container, SimpleGrid, Button, Group } from "@mantine/core";
+import {
+  Paper,
+  Grid,
+  Skeleton,
+  Text,
+  Group,
+  Button,
+  ScrollArea,
+} from "@mantine/core";
+import { useSearchParams } from "react-router-dom";
+
 import ForumCard from "../components/ForumCard/card";
 import LoadingPost from "../components/ForumCard/loading";
 
-import SideBarRight from "../components/slideBar-right/sidebar";
-import { FetchUserFeed } from "../services/user.feed";
+import { SearchQuestions } from "../services/post.search";
 import { Link } from "react-router-dom"
 
-export default function HomePage() {
+export default function SearchPage() {
+  const [searchParams, _] = useSearchParams();
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const term = searchParams.get("q");
+
   const fetchData = async () => {
-    let data = await FetchUserFeed();
+    let data = await SearchQuestions(term);
     setQuestions(data);
+
     setLoading(false);
   };
 
@@ -22,19 +35,25 @@ export default function HomePage() {
     console.log(questions);
   }, []);
 
+  const height = 400;
   return (
-    <div>
-      <Container p={0} m={0} pl={10} size={2000}>
-        <Grid>
-          <Grid.Col xs={3} className="slidebarleft">
-            {}
-          </Grid.Col>
-          <Grid.Col xs={6.2}>
-            <Group position="apart">
-              <h1> Top Questions For You </h1>
+    <Paper p="md">
+      <Grid>
+        <Grid.Col span={2}>{}</Grid.Col>
+        <Grid.Col span={7}>
+          <Group position="apart">
+            <h1> Search Results </h1>
               <Button component={Link} to="/create"> Ask Question </Button>
-            </Group>
+          </Group>
 
+          <Text size="sm"> Results for {term} </Text>
+        </Grid.Col>
+      </Grid>
+
+      <Grid>
+        <Grid.Col span={2}>{}</Grid.Col>
+        <Grid.Col span={7}>
+          <ScrollArea style={{ height: 700 }}>
             {loading ? (
               <>
                 {[...Array(10)].map(() => (
@@ -50,18 +69,16 @@ export default function HomePage() {
                     })}
                   </>
                 ) : (
-                  <h1> no questions found please upvote more posts </h1>
+                  <h1> no results found.</h1>
                 )}
               </>
             )}
-          </Grid.Col>
-          <Grid.Col xs={2.5}>
-            <SimpleGrid className="homepagegridsidebargird">
-              <SideBarRight />
-            </SimpleGrid>
-          </Grid.Col>
-        </Grid>
-      </Container>
-    </div>
+          </ScrollArea>
+        </Grid.Col>
+        <Grid.Col span={2}>
+          <Skeleton height={height} />
+        </Grid.Col>
+      </Grid>
+    </Paper>
   );
 }

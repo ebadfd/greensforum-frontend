@@ -26,7 +26,7 @@ export const isValidToken = () => {
       return false;
     } else {
       let updatestatus = updateTokens(values.refresh_token);
-      console.log("=============== updaving token ===================");
+      console.log("=============== updating token ===================");
       console.log(updatestatus);
       return updatestatus;
     }
@@ -43,6 +43,20 @@ export const getAuthStorage = () => {
 // update the auth token
 const updateAuthToken = (payload) => {
   localStorage.setItem("auth", JSON.stringify(payload));
+};
+
+// get if the user is admin or not
+export const isUserAdmin = () => {
+  if (!isValidToken) {
+    return false;
+  }
+
+  let values = getAuthStorage();
+
+  if (values.user_type >= 1) {
+    return true;
+  }
+  return false;
 };
 
 // in case user auth token is expired update the token using this function

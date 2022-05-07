@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   createStyles,
   Header,
@@ -6,14 +6,21 @@ import {
   ActionIcon,
   Container,
   Burger,
+  Button,
   TextInput,
+  Skeleton,
   Box,
+  Modal,
   Avatar,
 } from "@mantine/core";
 import { useBooleanToggle } from "@mantine/hooks";
 import { Search } from "tabler-icons-react";
-import { useForm } from "@mantine/form";
 import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
+import { isValidToken } from "../../authtoken";
+import { GetLoggedInUser } from "../../services/user.logged";
+import { Link } from "react-router-dom";
+
+import { RegisterForm } from "../Register/register";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -81,19 +88,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function SearhForm() {
-  const form = useForm({
-    initialValues: {
-      q: "",
-    },
-  });
-
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form action="/search" method="GET">
         <TextInput
           required
           placeholder="Search Anything"
-          {...form.getInputProps("q")}
+          name="q"
           size="md"
           width={"150%"}
           icon={<Search size={14} />}
@@ -109,6 +110,12 @@ export function HeaderMiddle({ links }) {
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUser, setIsLoggedInUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [modelOpen, setModelOpen] = useState(false);
+
   const items = links.map((link) => (
     <a
       key={link.label}
@@ -121,8 +128,28 @@ export function HeaderMiddle({ links }) {
     </a>
   ));
 
+  const getUser = async () => {
+    let u = await GetLoggedInUser();
+    console.log("======== log user ======");
+    console.log(u);
+    setIsLoggedInUser(u);
+  };
+
+  useEffect(() => {
+    setIsLoggedIn(isValidToken());
+
+    if (isLoggedIn) {
+      getUser();
+    }
+    setLoading(false);
+  }, []);
+
   return (
     <>
+      <Modal opened={modelOpen} onClose={() => setModelOpen(false)} size={700}>
+        <RegisterForm />
+      </Modal>
+
       <Header className="application-header" height={58}>
         <Container className={classes.inner}>
           <Burger
@@ -137,11 +164,53 @@ export function HeaderMiddle({ links }) {
           <SearhForm />
           <Group spacing={0} className={classes.social} position="right" noWrap>
             <ActionIcon size="lg">
-              <ColorSchemeToggle />
-
-              <Avatar color="cyan" radius="xl" ml={10}>
-                JD
-              </Avatar>
+              {loading ? (
+                <Skeleton height={34} circle width={40} />
+              ) : (
+                <>
+                  {isLoggedIn ? (
+                    <>
+                      {loggedInUser ? (
+                        <>
+                          <Avatar
+                            color="cyan"
+                            radius="xl"
+                            ml={10}
+                            alt={loggedInUser.username}
+                            key={loggedInUser.id}
+                            src={loggedInUser.account.profile_image}
+                            component={Link}
+                            to="/profile"
+                          >
+                            JD
+                          </Avatar>
+                        </>
+                      ) : (
+                        <> </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="subtle"
+                        mr={10}
+                        type="reset"
+                        component={Link}
+                        to="/login"
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        onClick={() => setModelOpen(true)}
+                        variant="light"
+                      >
+                        {" "}
+                        Register
+                      </Button>
+                    </>
+                  )}
+                </>
+              )}
             </ActionIcon>
           </Group>
         </Container>

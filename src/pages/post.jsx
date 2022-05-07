@@ -8,7 +8,6 @@ import {
   useMantineTheme,
   Group,
   Button,
-  Textarea,
   Breadcrumbs,
   Anchor,
   Badge,
@@ -16,13 +15,13 @@ import {
   Paper,
   ScrollArea,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { CommentCard } from "../components/Comment/comment";
 import { useParams } from "react-router-dom";
 import { GetPostbySlug } from "../services/post.slug";
 
 import { Link } from "react-router-dom";
 import { ChevronUp, ChevronDown } from "tabler-icons-react";
+import { PostAnswer } from "../components/PostAnswer/answer";
 
 export default function Post() {
   const [question, setQuestion] = useState(null);
@@ -34,12 +33,6 @@ export default function Post() {
 
   const secondaryColor =
     theme.colorScheme === "dark" ? theme.colors.dark[1] : theme.colors.gray[7];
-
-  const form = useForm({
-    initialValues: {
-      comment: "",
-    },
-  });
 
   const items = [
     { title: "Home", href: "/" },
@@ -151,39 +144,7 @@ export default function Post() {
                   </>
                 )}
 
-                <Paper shadow="xl" p="xl" withBorder mt={50}>
-                  <Text
-                    size="lg"
-                    weight={500}
-                    style={{ color: secondaryColor, lineHeight: 2 }}
-                  >
-                    Your Answer{" "}
-                  </Text>
-
-                  <form
-                    onSubmit={form.onSubmit((values) => console.log(values))}
-                  >
-                    <Textarea
-                      size="md"
-                      mt={10}
-                      placeholder="Add your answer here"
-                      variant="default"
-                      {...form.getInputProps("comment")}
-                    />
-
-                    <Group position="left" mt="md">
-                      <Button
-                        type="submit"
-                        variant="filled"
-                        radius="xs"
-                        size="md"
-                      >
-                        Post your answer
-                      </Button>
-                    </Group>
-                  </form>
-                </Paper>
-
+                <PostAnswer pid={question.id} />
                 <Paper shadow="xl" p="xl" withBorder mt={50}>
                   <Text
                     size="lg"

@@ -14,7 +14,7 @@ import ForumCard from "../components/ForumCard/card";
 import LoadingPost from "../components/ForumCard/loading";
 
 import { SearchQuestions } from "../services/post.search";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function SearchPage() {
   const [searchParams, _] = useSearchParams();
@@ -43,7 +43,10 @@ export default function SearchPage() {
         <Grid.Col span={7}>
           <Group position="apart">
             <h1> Search Results </h1>
-              <Button component={Link} to="/create"> Ask Question </Button>
+            <Button component={Link} to="/create">
+              {" "}
+              Ask Question{" "}
+            </Button>
           </Group>
 
           <Text size="sm"> Results for {term} </Text>

@@ -41,7 +41,7 @@ function ForumCard({ props }) {
               </>
             ) : (
               <>
-                <Code color="white">{props.answer_count} answer</Code>
+                <Code color="white">{props.answer_count} answers</Code>
               </>
             )}
           </Grid.Col>

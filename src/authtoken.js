@@ -82,6 +82,7 @@ const updateTokens = (r_token) => {
         return false;
       } else {
         updateAuthToken(result);
+        console.log(result);
       }
     })
     .catch((error) => {

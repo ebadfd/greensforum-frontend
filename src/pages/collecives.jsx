@@ -57,7 +57,6 @@ export default function Collectives() {
   return (
     <Container className={classes.wrapper}>
       <Title className={classes.title}>
-        {" "}
         Communities for your favorite things{" "}
       </Title>
 

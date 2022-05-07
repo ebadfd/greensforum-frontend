@@ -1,7 +1,6 @@
-
 import { config } from "../config";
 
-export const GetPostbySlug = async (slug ) => {
+export const GetPostbySlug = async (slug) => {
   var headers = new Headers();
 
   var requestOptions = {

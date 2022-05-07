@@ -18,9 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [appErrors, setAppErrors] = useState(null);
-  const [refreshToken, setRefreshToken] = useLocalStorage({
-    key: "refresh_token",
-  });
   const [saveTokens, setSaveTokens] = useLocalStorage({ key: "auth" });
   const navigate = useNavigate();
 

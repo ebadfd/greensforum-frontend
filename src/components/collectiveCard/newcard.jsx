@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function ImageActionBanner({ props }) {
+export function ImageActionBanner({ props, isBig }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
 
@@ -63,20 +63,41 @@ export function ImageActionBanner({ props }) {
           {props.name}
         </Text>
 
-        <Text size="sm" className={classes.description} lineClamp={2}>
-          {props.description}
-        </Text>
+        {!isBig ? (
+          <Text size="sm" className={classes.description} lineClamp={2}>
+            {props.description}
+          </Text>
+        ) : (
+          <Text size="sm" className={classes.description}>
+            {props.description}
+          </Text>
+        )}
 
-        <Button
-          className={classes.action}
-          variant="white"
-          color="dark"
-          component="a"
-          size="xs"
-          href={`/collective/${props.slug}`}
-        >
-          More information
-        </Button>
+        {!isBig ? (
+          <Button
+            className={classes.action}
+            variant="white"
+            color="dark"
+            component="a"
+            size="xs"
+            href={`/collective/${props.slug}`}
+          >
+            More information
+          </Button>
+        ) : (
+          <>
+            <Button
+              className={classes.action}
+              variant="white"
+              color="dark"
+              component="a"
+              size="xs"
+              href={`/collective/${props.slug}`}
+            >
+              Join
+            </Button>
+          </>
+        )}
       </div>
     </Card>
   );

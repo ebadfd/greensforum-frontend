@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { Link } from "react-router-dom";
 
-function ForumCard({ props }) {
+export function PostCard({ props }) {
   const theme = useMantineTheme();
 
   const secondaryColor =
@@ -18,14 +18,14 @@ function ForumCard({ props }) {
 
   return (
     <div style={{ margin: "auto" }}>
-      <Card shadow="sm" p="lg" mb={30} withBorder>
+      <Card shadow="sm" p="lg" mb={30} withBorder key={props.id}>
         <Grid columns={24} gutter="xs">
           <Grid.Col span={3}>
             {" "}
             <Text size="sm">{props.up_vote_count} votes</Text>
           </Grid.Col>
           <Grid.Col span={18}>
-            <Anchor href={`/question/${props.slug}`}>
+            <Anchor href={`/post/${props.slug}`}>
               <Text weight={500} className="textTitle" lineClamp={1}>
                 {props.title}
               </Text>
@@ -69,12 +69,8 @@ function ForumCard({ props }) {
                 <>
                   {props.tags.map((item) => {
                     return (
-                      <Badge
-                        variant="dot"
-                        component={Link}
-                        to={`/tag/${item.name}`}
-                      >
-                        {item.name}
+                      <Badge variant="dot" component={Link} to={`/tag/${item}`}>
+                        {item}
                       </Badge>
                     );
                   })}
@@ -89,11 +85,6 @@ function ForumCard({ props }) {
           <Grid.Col span={3}>
             <Group>
               <div>
-                {/*
-                <Anchor href="//" target="_blank">
-                  John Doe
-                </Anchor>
-          */}
                 <Text size="xs" color="dimmed">
                   {new Date(props.created_at).toDateString()}
                 </Text>
@@ -105,5 +96,3 @@ function ForumCard({ props }) {
     </div>
   );
 }
-
-export default ForumCard;

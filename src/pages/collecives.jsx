@@ -81,7 +81,7 @@ export default function Collectives() {
             {collectives.length > 0 ? (
               <>
                 {collectives.map((item) => {
-                  return <ImageActionBanner props={item} />;
+                  return <ImageActionBanner props={item} isBig={false} />;
                 })}
               </>
             ) : (

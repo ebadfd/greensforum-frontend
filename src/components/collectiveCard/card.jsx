@@ -48,7 +48,6 @@ export function CardWithStats({ props }) {
           size="xs"
           component={Link}
           to={`/collective/${props.slug}`}
-          size="xl"
           weight={700}
           className={classes.title}
         >

@@ -6,10 +6,23 @@ import {
   Group,
   Badge,
   Button,
-  createStyles,
   Avatar,
   useMantineTheme,
+  createStyles,
+  SimpleGrid,
+  UnstyledButton,
+  Paper,
 } from "@mantine/core";
+
+import {
+  BuildingBank,
+  Receipt,
+  UserPlus,
+  Sticker,
+  MoodSuprised,
+  QuestionMark,
+} from "tabler-icons-react";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -35,45 +48,92 @@ const useStyles = createStyles((theme) => ({
     fontSize: theme.fontSizes.xs,
     fontWeight: 700,
   },
+
+  item: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    borderRadius: theme.radius.md,
+    height: 90,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    transition: "box-shadow 150ms ease, transform 100ms ease",
+
+    "&:hover": {
+      boxShadow: `${theme.shadows.md} !important`,
+      transform: "scale(1.05)",
+    },
+  },
 }));
 
+const mockdata = [
+  { title: "Ask Question", icon: QuestionMark, color: "violet" },
+  { title: "Discover Communities", icon: BuildingBank, color: "indigo" },
+  { title: "Join Communities", icon: UserPlus, color: "blue" },
+  { title: "Write Posts", icon: Receipt, color: "pink" },
+  { title: "Answer Questions", icon: Sticker, color: "red" },
+  { title: "Experiance Recommandations", icon: MoodSuprised, color: "orange" },
+];
+
 export function BadgeCard({ image, username, description, email, pfp }) {
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles();
+
+  const items = mockdata.map((item) => (
+    <UnstyledButton key={item.title} className={classes.item}>
+      <item.icon color={theme.colors[item.color][6]} size={32} />
+      <Text size="xs" mt={7}>
+        {item.title}
+      </Text>
+    </UnstyledButton>
+  ));
+
   return (
-    <Card withBorder p="xl" radius="md" className="SidebarCard">
-      <Card.Section>
-        <Image src={image} alt={username} height={180} />
-      </Card.Section>
-
-      <Card.Section className={classes.section} mt="md">
-        <Group>
-          <Avatar color="cyan" radius="lg" src={pfp}>
-            {username}
-          </Avatar>
-          <Text size="lg" weight={500}>
-            {username}
-          </Text>
-        </Group>
-        <Text size="sm" mt="xs">
-          {description}
+    <Paper
+      radius="md"
+      withBorder
+      p="lg"
+      className="SidebarCard"
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+      })}
+    >
+      <Paper
+        radius="md"
+        withBorder
+        p="lg"
+        sx={(theme) => ({
+          backgroundColor:
+            theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+        })}
+      >
+        <Avatar src={pfp} size={120} radius={120} mx="auto" />
+        <Text align="center" size="lg" weight={500} mt="md">
+          {username}
         </Text>
-
-        <Text size="sm" mt="xs">
+        <Text align="center" color="dimmed" size="sm">
           {email}
         </Text>
-      </Card.Section>
+      </Paper>
+
+      <SimpleGrid cols={3} mt="md">
+        {items}
+      </SimpleGrid>
 
       <Group mt="xs">
         <Button
-          radius="xs"
-          variant="light"
-          color="red"
-          uppercase
+          radius="md"
+          variant="default"
           style={{ flex: 1 }}
+          mt={5}
+          component={Link}
+          to="/questions"
         >
-          Log out
+          Browse Questions
         </Button>
       </Group>
-    </Card>
+    </Paper>
   );
 }

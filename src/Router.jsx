@@ -9,6 +9,7 @@ import SearchPage from "./pages/search";
 import CreatePost from "./pages/create";
 import Collectives from "./pages/collecives";
 import CollectiveInformation from "./pages/collective.info";
+import QuestionsTagged from "./pages/questiontags";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -30,6 +31,7 @@ function Router() {
     { path: "create", element: <CreatePost /> },
     { path: "collecives", element: <Collectives /> },
     { path: "question/:slug", element: <Post /> },
+    { path: "tag/:slug", element: <QuestionsTagged /> },
     { path: "collective/:slug", element: <CollectiveInformation /> },
   ]);
 

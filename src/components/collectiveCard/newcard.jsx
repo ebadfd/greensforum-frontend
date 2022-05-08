@@ -68,7 +68,7 @@ export function ImageActionBanner({ props, isBig }) {
             {props.description}
           </Text>
         ) : (
-          <Text size="sm" className={classes.description}>
+          <Text size="sm" className={classes.description} lineClamp={7}>
             {props.description}
           </Text>
         )}

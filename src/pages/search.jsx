@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Paper,
-  Grid,
-  Skeleton,
-  Text,
-  Group,
-  Button,
-} from "@mantine/core";
+import { Paper, Grid, Skeleton, Text, Group, Button } from "@mantine/core";
 import { useSearchParams } from "react-router-dom";
 import { SearchQuestions } from "../services/post.search";
 import { Link } from "react-router-dom";
-import DisplayQuestions from "../components/render/displayquestions"
+import DisplayQuestions from "../components/render/displayquestions";
 
 export default function SearchPage() {
   const [searchParams, _] = useSearchParams();
@@ -52,7 +45,11 @@ export default function SearchPage() {
       <Grid>
         <Grid.Col span={2}>{}</Grid.Col>
         <Grid.Col span={7}>
-      <DisplayQuestions loading={loading} questions={questions} notfound={" no results found."}/>
+          <DisplayQuestions
+            loading={loading}
+            questions={questions}
+            notfound={" no results found."}
+          />
         </Grid.Col>
         <Grid.Col span={2}>
           <Skeleton height={height} />

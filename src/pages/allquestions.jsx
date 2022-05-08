@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Paper,
-  Grid,
-  Skeleton,
-  Group,
-  Button,
-} from "@mantine/core";
+import { Paper, Grid, Skeleton, Group, Button } from "@mantine/core";
 
-import { AllQuestions } from "../services/post.search"
+import { AllQuestions } from "../services/post.search";
 import { Link } from "react-router-dom";
-import DisplayQuestions from "../components/render/displayquestions"
+import DisplayQuestions from "../components/render/displayquestions";
 
 export default function DisplayAllQuestions() {
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
-
 
   const fetchData = async () => {
     let data = await AllQuestions();
@@ -40,15 +33,17 @@ export default function DisplayAllQuestions() {
               Ask Question
             </Button>
           </Group>
-
         </Grid.Col>
       </Grid>
 
       <Grid>
         <Grid.Col span={2}>{}</Grid.Col>
         <Grid.Col span={7}>
-
-      <DisplayQuestions loading={loading} questions={questions} notfound={" no results found."}/>
+          <DisplayQuestions
+            loading={loading}
+            questions={questions}
+            notfound={" no results found."}
+          />
         </Grid.Col>
         <Grid.Col span={2}>
           <Skeleton height={height} />

@@ -12,7 +12,10 @@ import {
   Box,
   Modal,
   Avatar,
+
+
 } from "@mantine/core";
+
 import { useBooleanToggle } from "@mantine/hooks";
 import { Search } from "tabler-icons-react";
 import { Link } from "react-router-dom";
@@ -154,8 +157,6 @@ export function HeaderMiddle({ links, isLoggedIn, loggedInUser, loading }) {
                         <>
                           <NotificationPopOver user={loggedInUser} />
                           <Avatar
-                            color="cyan"
-                            radius="xl"
                             ml={10}
                             alt={loggedInUser.username}
                             key={loggedInUser.id}

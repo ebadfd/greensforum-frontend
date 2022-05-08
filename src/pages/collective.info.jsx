@@ -71,7 +71,7 @@ export default function CollectiveInformation() {
         <Grid mt={10}>
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={9}>
-            <Paper shadow="xl" radius="md">
+            <Paper radius="md">
               <Grid grow gutter="xs">
                 <Grid.Col span={1}>
                   <ImageActionBanner props={questions} isBig={true} />

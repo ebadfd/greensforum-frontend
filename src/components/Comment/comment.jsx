@@ -1,4 +1,5 @@
 import { Text, Paper, SimpleGrid, useMantineTheme } from "@mantine/core";
+import DOMPurify from "dompurify";
 
 export function CommentCard({ props }) {
   const theme = useMantineTheme();
@@ -13,9 +14,14 @@ export function CommentCard({ props }) {
             {props.title}
           </Text>
 
-          <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
-            {props.body}
-          </Text>
+         <Text
+              size="sm"
+              style={{ color: secondaryColor, lineHeight: 1.5 }}
+              lineClamp={2}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.body),
+              }}
+            />
 
           <Text size="xs" color="dimmed" mt={10}>
             {new Date(props.created_at).toDateString()}

@@ -4,23 +4,25 @@ import {
   Group,
   Button,
   Textarea,
-  Modal,
   Paper,
   Notification,
-  Anchor,
+  Modal,
   useMantineTheme,
 } from "@mantine/core";
 
 import React, { useState } from "react";
+import { RichTextEditor } from "@mantine/rte";
 import { useForm } from "@mantine/form";
 import { Check, X } from "tabler-icons-react";
 import { LoginForm } from "../Login/login";
 import { isValidToken, getAuthStorage } from "../../authtoken";
 import { config } from "../../config";
 
+
 export function PostAnswer({ pid }) {
   const [opened, setOpened] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [value, onChange] = useState(" ");
   const [appErrors, setappErrors] = useState(null);
   const theme = useMantineTheme();
 
@@ -29,7 +31,6 @@ export function PostAnswer({ pid }) {
 
   const form = useForm({
     initialValues: {
-      body: "",
       title: "",
     },
   });
@@ -37,15 +38,24 @@ export function PostAnswer({ pid }) {
   const HandleCommentSubmission = (values) => {
     if (!isValidToken()) {
       setOpened(true);
+      return;
     }
-
+    if (value == "<p><br></p>") {
+      setappErrors({
+        error: "Validation Error",
+        details:
+          "post body is empty. make sure you have content on the post body",
+      });
+      setSuccess(false);
+      return;
+    }
     const tokens = getAuthStorage();
 
     var headers = new Headers();
     headers.append("Authorization", `Bearer ${tokens.auth_token}`);
 
     let raw = JSON.stringify({
-      body: values.body,
+      body: value,
       title: values.title,
     });
 
@@ -136,15 +146,16 @@ export function PostAnswer({ pid }) {
             required
             {...form.getInputProps("title")}
           />
-          <Textarea
-            size="md"
-            required
-            label="Body"
-            mt={10}
-            placeholder="e.g. You can easily fix this by using this thing. and it works fine"
-            variant="default"
-            {...form.getInputProps("body")}
-          />
+
+
+      <Text mt={20} weight={500}> Answer body </Text>
+
+                <RichTextEditor value={value} onChange={onChange} mt={20} />
+                <br />
+                <Text size="xs">
+                  Include all the information someone would need to answer your
+                  question{" "}
+                </Text>
 
           <Group position="left" mt="md">
             <Button type="submit" variant="filled" radius="xs" size="md">

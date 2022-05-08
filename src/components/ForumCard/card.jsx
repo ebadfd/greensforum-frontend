@@ -9,6 +9,7 @@ import {
   Code,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 function ForumCard({ props }) {
   const theme = useMantineTheme();
@@ -51,9 +52,10 @@ function ForumCard({ props }) {
               size="sm"
               style={{ color: secondaryColor, lineHeight: 1.5 }}
               lineClamp={2}
-            >
-              {props.body}
-            </Text>
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.body),
+              }}
+            />
           </Grid.Col>
           <Grid.Col span={3}>{}</Grid.Col>
 

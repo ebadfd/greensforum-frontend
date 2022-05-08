@@ -26,7 +26,7 @@ export function UserInformation({ loggedInUser }) {
         </UnstyledButton>
       </Menu.Item>
       <Menu.Item icon={<Photo size={14} />}>
-        <UnstyledButton component={Link} to={`/profile`}>
+        <UnstyledButton component={Link} to={`/user/unaproved`}>
           Unaproved posts
         </UnstyledButton>
       </Menu.Item>

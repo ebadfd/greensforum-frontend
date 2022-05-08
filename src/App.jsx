@@ -29,7 +29,7 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider>
+        <NotificationsProvider position="top-right">
           <HeaderMiddle
             links={attributes}
             isLoggedIn={isValidToken()}

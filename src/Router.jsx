@@ -13,7 +13,7 @@ import QuestionsTagged from "./pages/questiontags";
 import DisplayAllQuestions from "./pages/allquestions";
 import UserProfile from "./pages/userProfile";
 import CollectivePost from "./pages/collective.post";
-import MembersofCollective from "./pages/collective.members"
+import MembersofCollective from "./pages/collective.members";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";

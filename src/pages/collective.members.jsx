@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Paper,
-  Grid,
-  Text,
-  Group,
-  Button,
-} from "@mantine/core";
-
+import { Paper, Grid, Text, Group, Button } from "@mantine/core";
 
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -91,15 +84,11 @@ export default function MembersofCollective() {
         <Grid>
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
-        <h1> memebers </h1>
+            <h1> memebers </h1>
           </Grid.Col>
-          <Grid.Col span={2}>
-          
-          </Grid.Col>
+          <Grid.Col span={2}></Grid.Col>
         </Grid>
       </Paper>
     );
   }
 }
-
-

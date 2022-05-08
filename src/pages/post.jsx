@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   Container,
-  TypographyStylesProvider,
-  Title,
   Skeleton,
   Text,
   useMantineTheme,
-  Group,
-  Button,
   Breadcrumbs,
   Anchor,
-  Badge,
   Stack,
   Paper,
   ScrollArea,
@@ -21,9 +16,9 @@ import { useParams } from "react-router-dom";
 import { GetPostbySlug } from "../services/post.slug";
 
 import { Link } from "react-router-dom";
-import { ChevronUp, ChevronDown } from "tabler-icons-react";
 import { PostAnswer } from "../components/PostAnswer/answer";
-import DOMPurify from "dompurify";
+
+import DisplayPostDetails from "../components/QuestionDetails/info";
 
 export default function Post() {
   const [question, setQuestion] = useState(null);
@@ -81,71 +76,7 @@ export default function Post() {
               <Grid.Col xs={2} className="slidebarleft" />
               <Grid.Col xs={6} p="lg">
                 <Breadcrumbs mb={20}>{items}</Breadcrumbs>
-
-                {loading ? (
-                  <h1> loading </h1>
-                ) : (
-                  <>
-                    {question ? (
-                      <>
-                        <Paper shadow="xl" p="xl" withBorder>
-                          <Grid grow gutter="xs">
-                            <Grid.Col span={1}>
-                              <Stack>
-                                <Text
-                                  size="sm"
-                                  style={{
-                                    color: secondaryColor,
-                                    lineHeight: 2,
-                                  }}
-                                >
-                                  <Button variant="subtle" color="teal">
-                                    <ChevronUp />
-                                  </Button>
-                                  <Button variant="subtle" color="red">
-                                    {" "}
-                                    <ChevronDown />
-                                  </Button>
-                                  <br />
-                                  <Text size="sm">
-                                    {question.up_vote_count} upvotes
-                                  </Text>
-
-                                  <Text size="sm" color={secondaryColor}>
-                                    {question.view_count} views
-                                  </Text>
-                                </Text>
-                              </Stack>
-                            </Grid.Col>
-                            <Grid.Col span={10}>
-                              <Title mb={10}> {question.title}</Title>
-
-                              <TypographyStylesProvider>
-                                <div
-                                  dangerouslySetInnerHTML={{
-                                    __html: DOMPurify.sanitize(question.body),
-                                  }}
-                                />
-                              </TypographyStylesProvider>
-
-                              <Group mt={20}>
-                                {question.tags.map((tag) => {
-                                  return <Badge>{tag.name}</Badge>;
-                                })}
-                              </Group>
-
-                              <Text size="xs" color="dimmed" mt={30}>
-                                {new Date(question.created_at).toDateString()}
-                              </Text>
-                            </Grid.Col>
-                          </Grid>
-                        </Paper>
-                      </>
-                    ) : (
-                      <h1> 404 not found </h1>
-                    )}
-                  </>
-                )}
+                <DisplayPostDetails loading={loading} question={question} />
 
                 <PostAnswer pid={question.id} />
                 <Paper shadow="xl" p="xl" withBorder mt={50}>

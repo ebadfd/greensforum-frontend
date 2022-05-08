@@ -18,7 +18,6 @@ import { LoginForm } from "../Login/login";
 import { isValidToken, getAuthStorage } from "../../authtoken";
 import { config } from "../../config";
 
-
 export function PostAnswer({ pid }) {
   const [opened, setOpened] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -147,15 +146,17 @@ export function PostAnswer({ pid }) {
             {...form.getInputProps("title")}
           />
 
+          <Text mt={20} weight={500}>
+            {" "}
+            Answer body{" "}
+          </Text>
 
-      <Text mt={20} weight={500}> Answer body </Text>
-
-                <RichTextEditor value={value} onChange={onChange} mt={20} />
-                <br />
-                <Text size="xs">
-                  Include all the information someone would need to answer your
-                  question{" "}
-                </Text>
+          <RichTextEditor value={value} onChange={onChange} mt={20} />
+          <br />
+          <Text size="xs">
+            Include all the information someone would need to answer your
+            question{" "}
+          </Text>
 
           <Group position="left" mt="md">
             <Button type="submit" variant="filled" radius="xs" size="md">

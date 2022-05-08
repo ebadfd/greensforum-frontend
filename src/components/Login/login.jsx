@@ -20,6 +20,7 @@ export function LoginForm() {
 
   const [appErrors, setAppErrors] = useState(null);
   const [saveTokens, setSaveTokens] = useLocalStorage({ key: "auth" });
+  const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });
 
   const form = useForm({
     initialValues: {
@@ -53,6 +54,27 @@ export function LoginForm() {
         } else {
           setSaveTokens(result);
           setAppErrors(null);
+
+          // save the user info on localstorage
+          headers.append("Authorization", `Bearer ${result.auth_token}`);
+          let r2 = {
+            method: "GET",
+            headers: headers,
+            redirect: "follow",
+          };
+
+          fetch(`${config.v1}user/me`, r2)
+            .then((result) => result.json())
+            .then((data) => {
+              if (data.error) {
+                setAppErrors(data);
+                return;
+              } else {
+                setSaveUser(data);
+                console.log(saveUser);
+              }
+            });
+
           navigate("/", { replace: true });
         }
       })

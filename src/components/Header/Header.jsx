@@ -15,12 +15,12 @@ import {
 } from "@mantine/core";
 import { useBooleanToggle } from "@mantine/hooks";
 import { Search } from "tabler-icons-react";
-import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
-import { isValidToken } from "../../authtoken";
-import { GetLoggedInUser } from "../../services/user.logged";
 import { Link } from "react-router-dom";
 
 import { RegisterForm } from "../Register/register";
+import { Notification } from "tabler-icons-react";
+
+import { NotificationPopOver } from "../notifications/notification"
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -105,14 +105,10 @@ function SearhForm() {
   );
 }
 
-export function HeaderMiddle({ links }) {
+export function HeaderMiddle({ links, isLoggedIn, loggedInUser, loading }) {
   const [opened, toggleOpened] = useBooleanToggle(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loggedInUser, setIsLoggedInUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   const [modelOpen, setModelOpen] = useState(false);
 
@@ -127,22 +123,6 @@ export function HeaderMiddle({ links }) {
       {link.label}
     </a>
   ));
-
-  const getUser = async () => {
-    let u = await GetLoggedInUser();
-    console.log("======== log user ======");
-    console.log(u);
-    setIsLoggedInUser(u);
-  };
-
-  useEffect(() => {
-    setIsLoggedIn(isValidToken());
-
-    if (isLoggedIn) {
-      getUser();
-    }
-    setLoading(false);
-  }, []);
 
   return (
     <>
@@ -172,6 +152,8 @@ export function HeaderMiddle({ links }) {
                     <>
                       {loggedInUser ? (
                         <>
+                         
+                          <NotificationPopOver user={loggedInUser}/>
                           <Avatar
                             color="cyan"
                             radius="xl"
@@ -181,9 +163,7 @@ export function HeaderMiddle({ links }) {
                             src={loggedInUser.account.profile_image}
                             component={Link}
                             to="/profile"
-                          >
-                            JD
-                          </Avatar>
+                          ></Avatar>
                         </>
                       ) : (
                         <> </>
@@ -204,7 +184,6 @@ export function HeaderMiddle({ links }) {
                         onClick={() => setModelOpen(true)}
                         variant="light"
                       >
-                        {" "}
                         Register
                       </Button>
                     </>

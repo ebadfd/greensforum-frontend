@@ -22,6 +22,7 @@ import { GetPostbySlug } from "../services/post.slug";
 import { Link } from "react-router-dom";
 import { ChevronUp, ChevronDown } from "tabler-icons-react";
 import { PostAnswer } from "../components/PostAnswer/answer";
+import DOMPurify from "dompurify";
 
 export default function Post() {
   const [question, setQuestion] = useState(null);
@@ -121,9 +122,10 @@ export default function Post() {
                               <Text
                                 size="sm"
                                 style={{ color: secondaryColor, lineHeight: 2 }}
-                              >
-                                {question.body}
-                              </Text>
+                                dangerouslySetInnerHTML={{
+                                  __html: DOMPurify.sanitize(question.body),
+                                }}
+                              ></Text>
 
                               <Group mt={20}>
                                 {question.tags.map((tag) => {

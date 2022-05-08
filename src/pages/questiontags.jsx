@@ -70,21 +70,16 @@ export default function QuestionsTagged() {
                     })}
                   </>
                 ) : (
-  <Text size="xs">no results found.</Text>
+                  <Text size="xs">no results found.</Text>
                 )}
               </>
             )}
           </ScrollArea>
         </Grid.Col>
         <Grid.Col span={2}>
-  <Text
-      component="span"
-      align="center"
-      size="xl"
-      weight={700}
-    >
-      Posts related.
-    </Text>
+          <Text component="span" align="center" size="xl" weight={700}>
+            Posts related.
+          </Text>
           <ScrollArea style={{ height: 700 }} mt={20}>
             {loading ? (
               <>
@@ -113,7 +108,7 @@ export default function QuestionsTagged() {
                     })}
                   </>
                 ) : (
-  <Text size="xs">no posts found.</Text>
+                  <Text size="xs">no posts found.</Text>
                 )}
               </>
             )}

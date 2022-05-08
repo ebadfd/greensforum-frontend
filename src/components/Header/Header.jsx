@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { RegisterForm } from "../Register/register";
 import { Notification } from "tabler-icons-react";
 
-import { NotificationPopOver } from "../notifications/notification"
+import { NotificationPopOver } from "../notifications/notification";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -152,8 +152,7 @@ export function HeaderMiddle({ links, isLoggedIn, loggedInUser, loading }) {
                     <>
                       {loggedInUser ? (
                         <>
-                         
-                          <NotificationPopOver user={loggedInUser}/>
+                          <NotificationPopOver user={loggedInUser} />
                           <Avatar
                             color="cyan"
                             radius="xl"

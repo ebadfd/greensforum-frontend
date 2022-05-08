@@ -7,6 +7,7 @@ import "./index.css";
 import { useLocalStorage } from "@mantine/hooks";
 import { HeaderMiddle } from "./components/Header/Header";
 import attributes from "./components/Header/attributes.json";
+import { isValidToken } from "./authtoken";
 
 function App() {
   const [colorScheme, setColorScheme] = useState("dark");
@@ -27,21 +28,13 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        {saveUser ? (
-          <HeaderMiddle
-            links={attributes}
-            isLoggedIn={true}
-            loggedInUser={saveUser}
-            loading={false}
-          />
-        ) : (
-          <HeaderMiddle
-            links={attributes}
-            isLoggedIn={false}
-            loggedInUser={saveUser}
-            loading={false}
-          />
-        )}
+        <HeaderMiddle
+          links={attributes}
+          isLoggedIn={isValidToken()}
+          loggedInUser={saveUser}
+          loading={false}
+        />
+
         <Router />
       </MantineProvider>
     </ColorSchemeProvider>

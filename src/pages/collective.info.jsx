@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   Paper,
-  Title,
   Grid,
-  Skeleton,
   Text,
   Tabs,
   Group,
   Button,
-  Image,
-  Badge,
-  SimpleGrid,
   ScrollArea,
 } from "@mantine/core";
 
@@ -23,6 +18,8 @@ import { GetCollectivebyinfo } from "../services/collective.one";
 import { ImageActionBanner } from "../components/collectiveCard/newcard";
 import { PostCard } from "../components/post/post.card";
 import { ArticleCardImage } from "../components/collectiveCard/about.side.card";
+
+import { AdminInformation } from "../components/Collective/admin.information";
 
 export default function CollectiveInformation() {
   const [questions, setQuestions] = useState(null);
@@ -40,8 +37,6 @@ export default function CollectiveInformation() {
     fetchData();
     console.log(questions);
   }, []);
-
-  const height = 400;
 
   if (!questions) {
     return <h1> 404 </h1>;
@@ -63,6 +58,12 @@ export default function CollectiveInformation() {
                 <Button component={Link} to="/create" variant="outline">
                   Ask Question
                 </Button>
+
+                <AdminInformation
+                  loading={loading}
+                  admins={questions.Admins}
+                  slug={slug}
+                />
               </Group>
             </Group>
           </Grid.Col>
@@ -79,51 +80,6 @@ export default function CollectiveInformation() {
               </Grid>
             </Paper>
           </Grid.Col>
-          {/* 
- <Grid.Col span={2}>
-            <Paper shadow="xl" radius="md" p="md" withBorder>
-              <Grid grow gutter="xs">
-                <Grid.Col span={1}>
-                  <Image
-                    radius="md"
-                    src={questions.logo_url}
-                    alt={questions.name}
-                  />
-                </Grid.Col>
-                <Grid.Col span={10}>
-                  <Title order={3} ml={5}>
-                    {questions.name}
-                  </Title>
-                  <Text size="xs" ml={5}>
-                    common tags
-                  </Text>
-
-                  <Group mt="lg" gutter="xs">
-                    {questions.tags.length > 0 ? (
-                      <>
-                        {questions.tags.map((item) => {
-                          return (
-                            <Badge
-                              variant="dot"
-                              component={Link}
-                              to={`/tag/${item}`}
-                            >
-                              {item}
-                            </Badge>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <Text size="xs" ml={5}>
-                        no tags found.
-                      </Text>
-                    )}
-                  </Group>
-                </Grid.Col>
-              </Grid>
-            </Paper>
-          </Grid.Col>
-            */}
         </Grid>
 
         <Grid>
@@ -143,7 +99,6 @@ export default function CollectiveInformation() {
           <Grid.Col span={7}>
             <Tabs variant="outline" tabPadding="lg">
               <Tabs.Tab label="Questions">
-                {" "}
                 <DisplayQuestions questions={questions} loading={loading} />
               </Tabs.Tab>
               <Tabs.Tab label="Atricles">

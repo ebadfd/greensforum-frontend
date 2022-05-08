@@ -29,7 +29,7 @@ function Router() {
 
     { path: "create", element: <CreatePost /> },
     { path: "collecives", element: <Collectives /> },
-    { path: "post/:slug", element: <Post /> },
+    { path: "question/:slug", element: <Post /> },
     { path: "collective/:slug", element: <CollectiveInformation /> },
   ]);
 

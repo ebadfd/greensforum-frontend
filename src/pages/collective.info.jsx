@@ -21,6 +21,8 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { GetCollectivebyinfo } from "../services/collective.one";
 import { ImageActionBanner } from "../components/collectiveCard/newcard";
+import { PostCard } from "../components/post/post.card";
+import { ArticleCardImage } from "../components/collectiveCard/about.side.card";
 
 export default function CollectiveInformation() {
   const [questions, setQuestions] = useState(null);
@@ -73,7 +75,7 @@ export default function CollectiveInformation() {
             <Paper shadow="xl" radius="md">
               <Grid grow gutter="xs">
                 <Grid.Col span={1}>
-                  <ImageActionBanner props={questions} />
+                  <ImageActionBanner props={questions} isBig={true} />
                 </Grid.Col>
               </Grid>
             </Paper>
@@ -95,14 +97,14 @@ export default function CollectiveInformation() {
                   <Text size="xs" ml={5}>
                     common tags
                   </Text>
-                  <SimpleGrid cols={4} spacing="sm" mt={10}>
+
+                  <Group mt="lg" gutter="xs">
                     {questions.tags.length > 0 ? (
                       <>
                         {questions.tags.map((item) => {
                           return (
                             <Badge
                               variant="dot"
-                              fullWidth
                               component={Link}
                               to={`/tag/${item}`}
                             >
@@ -116,7 +118,7 @@ export default function CollectiveInformation() {
                         no tags found.
                       </Text>
                     )}
-                  </SimpleGrid>
+                  </Group>
                 </Grid.Col>
               </Grid>
             </Paper>
@@ -140,13 +142,24 @@ export default function CollectiveInformation() {
           <Grid.Col span={7}>
             <Tabs variant="outline" tabPadding="lg">
               <Tabs.Tab label="Questions">questions will be here</Tabs.Tab>
-              <Tabs.Tab label="posts">
+              <Tabs.Tab label="Atricles">
                 <DisplayPosts questions={questions} loading={loading} />
               </Tabs.Tab>
             </Tabs>
           </Grid.Col>
           <Grid.Col span={2}>
-            <Skeleton height={height} />
+            <ArticleCardImage
+              name={questions.name}
+              title="something here"
+              category={"xyz"}
+              author="dasith"
+              footer={"idek"}
+              description={questions.description}
+              created_at={questions.created_at}
+              admins={questions.Admins}
+              tags={questions.tags}
+              slug={slug}
+            />
           </Grid.Col>
         </Grid>
       </Paper>
@@ -172,7 +185,7 @@ function DisplayPosts({ questions, loading }) {
             {questions.Post.length > 0 ? (
               <>
                 {questions.Post.map((q) => {
-                  return <ForumCard props={q} />;
+                  return <PostCard props={q} />;
                 })}
               </>
             ) : (

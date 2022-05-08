@@ -1,6 +1,7 @@
 - create collective page
 - aprove a post
 - logged in user can view his submitted posts
+- user info
 - pagination
 
 done

@@ -1,4 +1,10 @@
-import { Text, Paper, SimpleGrid, useMantineTheme } from "@mantine/core";
+import {
+  Text,
+  Paper,
+  SimpleGrid,
+  useMantineTheme,
+  TypographyStylesProvider,
+} from "@mantine/core";
 import DOMPurify from "dompurify";
 
 export function CommentCard({ props }) {
@@ -14,14 +20,13 @@ export function CommentCard({ props }) {
             {props.title}
           </Text>
 
-          <Text
-            size="sm"
-            style={{ color: secondaryColor, lineHeight: 1.5 }}
-            lineClamp={2}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(props.body),
-            }}
-          />
+          <TypographyStylesProvider>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.body),
+              }}
+            />
+          </TypographyStylesProvider>
 
           <Text size="xs" color="dimmed" mt={10}>
             {new Date(props.created_at).toDateString()}

@@ -40,7 +40,7 @@ const useStyles = createStyles((theme) => ({
 export function BadgeCard({ image, username, description, email, pfp }) {
   const { classes } = useStyles();
   return (
-    <Card withBorder radius="md" p="md" className="SidebarCard">
+    <Card withBorder p="xl" radius="md" className="SidebarCard">
       <Card.Section>
         <Image src={image} alt={username} height={180} />
       </Card.Section>

@@ -24,10 +24,7 @@ export const AllQuestions = async () => {
     redirect: "follow",
   };
 
-  const fetchedData = await fetch(
-    `${config.v1}view/questions`,
-    requestOptions
-  )
+  const fetchedData = await fetch(`${config.v1}view/questions`, requestOptions)
     .then((result) => result.json())
     .then((data) => {
       return data;

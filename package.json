@@ -11,6 +11,7 @@
     "@mantine/core": "^4.2.2",
     "@mantine/form": "^4.2.2",
     "@mantine/hooks": "^4.2.2",
+    "@mantine/notifications": "^4.2.3",
     "@mantine/rte": "^4.2.2",
     "dompurify": "^2.3.6",
     "jwt-decode": "^3.1.2",

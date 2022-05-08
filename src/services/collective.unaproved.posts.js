@@ -1,13 +1,12 @@
-
 import { config } from "../config";
 import { isValidToken, getAuthStorage } from "../authtoken";
 
 export const CollectiveUnaprovedPosts = async (slug) => {
- if (!isValidToken()) {
+  if (!isValidToken()) {
     return {
-    "error": "Missing Authentication",
-    "details": "Please make sure you are loggedin and have enough privilages"
-};
+      error: "Missing Authentication",
+      details: "Please make sure you are loggedin and have enough privilages",
+    };
   }
 
   const tokens = getAuthStorage();
@@ -17,11 +16,14 @@ export const CollectiveUnaprovedPosts = async (slug) => {
 
   var requestOptions = {
     method: "GET",
-    headers:headers, 
+    headers: headers,
     redirect: "follow",
   };
 
-  const fetchedData = await fetch(`${config.v1}/collectives/${slug}/post/unaproved`, requestOptions)
+  const fetchedData = await fetch(
+    `${config.v1}/collectives/${slug}/post/unaproved`,
+    requestOptions
+  )
     .then((result) => result.json())
     .then((data) => {
       return data;

@@ -15,7 +15,7 @@ import UserProfile from "./pages/userProfile";
 import CollectivePost from "./pages/collective.post";
 import MembersofCollective from "./pages/collective.members";
 import CreateArticleOnCollective from "./pages/collective.article.write";
-import UnaprovedPosts from "./pages/collective.unaproved.post"
+import UnaprovedPosts from "./pages/collective.unaproved.post";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";

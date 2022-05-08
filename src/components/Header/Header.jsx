@@ -10,8 +10,10 @@ import {
   TextInput,
   Skeleton,
   Box,
+  Space,
   Modal,
   Avatar,
+  Kbd,
 } from "@mantine/core";
 
 import { useBooleanToggle } from "@mantine/hooks";
@@ -22,6 +24,7 @@ import { RegisterForm } from "../Register/register";
 import { Notification } from "tabler-icons-react";
 
 import { NotificationPopOver } from "../notifications/notification";
+import { UserInformation } from "../headerPopover/userprofile";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -88,18 +91,28 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const rightSection = (
+  <div style={{ display: "flex", alignItems: "center" }}>
+    <Kbd>Ctrl</Kbd>
+    <span style={{ margin: "0 5px" }}>+</span>
+    <Kbd>K</Kbd>
+  </div>
+);
+
 function SearhForm() {
   return (
     <Box sx={{ maxWidth: 500 }} mx="auto">
       <form action="/search" method="GET">
         <TextInput
-          required
-          placeholder="Search Anything"
           name="q"
           size="md"
           width={"150%"}
-          icon={<Search size={14} />}
           className="search-bar"
+          placeholder="Search"
+          icon={<Search size={16} />}
+          rightSectionWidth={90}
+          rightSection={rightSection}
+          styles={{ rightSection: { pointerEvents: "none" } }}
         />
       </form>
     </Box>
@@ -154,14 +167,8 @@ export function HeaderMiddle({ links, isLoggedIn, loggedInUser, loading }) {
                       {loggedInUser ? (
                         <>
                           <NotificationPopOver user={loggedInUser} />
-                          <Avatar
-                            ml={10}
-                            alt={loggedInUser.username}
-                            key={loggedInUser.id}
-                            src={loggedInUser.account.profile_image}
-                            component={Link}
-                            to="/profile"
-                          ></Avatar>
+                          <Space w="lg" />
+                          <UserInformation loggedInUser={loggedInUser} />
                         </>
                       ) : (
                         <> </>

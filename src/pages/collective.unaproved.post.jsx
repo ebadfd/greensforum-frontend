@@ -108,7 +108,13 @@ function TableScrollArea({ data, slug }) {
         </Anchor>{" "}
       </td>
       <td>
-        <Button variant="subtle" color="teal" compact component={Link} to={`/collective/${slug}/${row.slug}/approve`}>
+        <Button
+          variant="subtle"
+          color="teal"
+          compact
+          component={Link}
+          to={`/collective/${slug}/${row.slug}/approve`}
+        >
           Accept
         </Button>
       </td>

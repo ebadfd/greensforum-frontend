@@ -71,6 +71,7 @@ export default function DisplayPostDetails({ loading, question }) {
               message: "you have already upvoted to this question",
               color: "red",
             });
+            return;
           }
 
           showNotification({

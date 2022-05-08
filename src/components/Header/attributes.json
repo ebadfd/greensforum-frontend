@@ -4,8 +4,8 @@
     "label": "Home"
   },
   {
-    "link": "/login",
-    "label": "Login"
+    "link": "/collecives",
+    "label": "Collecives"
   },
   {
     "link": "/pricing",

@@ -7,6 +7,8 @@ import Post from "./pages/post";
 import Register from "./pages/register";
 import SearchPage from "./pages/search";
 import CreatePost from "./pages/create";
+import Collectives from "./pages/collecives";
+import CollectiveInformation from "./pages/collective.info";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -26,8 +28,9 @@ function Router() {
     { path: "search", element: <SearchPage /> },
 
     { path: "create", element: <CreatePost /> },
-
+    { path: "collecives", element: <Collectives /> },
     { path: "post/:slug", element: <Post /> },
+    { path: "collective/:slug", element: <CollectiveInformation /> },
   ]);
 
   return routes;

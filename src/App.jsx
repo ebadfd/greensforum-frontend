@@ -23,7 +23,7 @@ import { isValidToken } from "./authtoken";
 import { Search, ArrowUp } from "tabler-icons-react";
 
 function App() {
-  const [colorScheme, setColorScheme] = useState("dark");
+  const [colorScheme, setColorScheme] = useLocalStorage({ key: 'color-scheme', defaultValue: 'dark' });
   const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });
   const [scroll, scrollTo] = useWindowScroll();
   const [opened, setOpened] = useState(false);

@@ -17,6 +17,7 @@ import MembersofCollective from "./pages/collective.members";
 import CreateArticleOnCollective from "./pages/collective.article.write";
 import UnaprovedPosts from "./pages/collective.unaproved.post";
 import UserUnaprovedPosts from "./pages/user.unaproved.post";
+import Settings from "./pages/settings"
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -44,6 +45,8 @@ function Router() {
     { path: "tag/:slug", element: <QuestionsTagged /> },
     { path: "profile", element: <UserProfile /> },
     { path: "user/unaproved", element: <UserUnaprovedPosts /> },
+
+    { path: "settings", element: <Settings /> },
 
     { path: "collective/:slug", element: <CollectiveInformation /> },
     { path: "collective/:slug/unaproved", element: <UnaprovedPosts /> },

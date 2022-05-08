@@ -6,14 +6,11 @@ import {
   Button,
   Group,
   Paper,
-  ScrollArea,
 } from "@mantine/core";
-import ForumCard from "../components/ForumCard/card";
-import LoadingPost from "../components/ForumCard/loading";
-
 import SideBarRight from "../components/slideBar-right/sidebar";
 import { FetchUserFeed } from "../services/user.feed";
 import { Link } from "react-router-dom";
+import DisplayQuestions from "../components/render/displayquestions";
 
 export default function HomePage() {
   const [questions, setQuestions] = useState(null);
@@ -42,32 +39,14 @@ export default function HomePage() {
               <Group position="apart">
                 <h1> Top Questions For You </h1>
                 <Button component={Link} to="/create">
-                  {" "}
                   Ask Question{" "}
                 </Button>
               </Group>
-
-              <ScrollArea style={{ height: 700 }}>
-                {loading ? (
-                  <>
-                    {[...Array(10)].map(() => (
-                      <LoadingPost />
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    {questions.length > 0 ? (
-                      <>
-                        {questions.map((q) => {
-                          return <ForumCard props={q} />;
-                        })}
-                      </>
-                    ) : (
-                      <h1> no questions found please upvote more posts </h1>
-                    )}
-                  </>
-                )}
-              </ScrollArea>
+              <DisplayQuestions
+                loading={loading}
+                questions={questions}
+                notfound={"no questions found please upvote more posts"}
+              />
             </Grid.Col>
             <Grid.Col xs={2.5}>
               <SimpleGrid className="homepagegridsidebargird">

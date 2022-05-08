@@ -17,3 +17,21 @@ export const SearchQuestions = async (searchterm) => {
 
   return fetchedData;
 };
+
+export const AllQuestions = async () => {
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  const fetchedData = await fetch(
+    `${config.v1}view/questions`,
+    requestOptions
+  )
+    .then((result) => result.json())
+    .then((data) => {
+      return data;
+    });
+
+  return fetchedData;
+};

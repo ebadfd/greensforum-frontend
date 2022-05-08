@@ -9,7 +9,7 @@ import {
   Code,
 } from "@mantine/core";
 import { Link } from "react-router-dom";
-import DOMpurify from "dompurify";
+import DOMPurify from "dompurify";
 
 export function PostCard({ props }) {
   const theme = useMantineTheme();

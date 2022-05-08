@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   Container,
+  TypographyStylesProvider,
   Title,
   Skeleton,
   Text,
@@ -119,13 +120,13 @@ export default function Post() {
                             <Grid.Col span={10}>
                               <Title mb={10}> {question.title}</Title>
 
-                              <Text
-                                size="sm"
-                                style={{ color: secondaryColor, lineHeight: 2 }}
-                                dangerouslySetInnerHTML={{
-                                  __html: DOMPurify.sanitize(question.body),
-                                }}
-                              ></Text>
+                              <TypographyStylesProvider>
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(question.body),
+                                  }}
+                                />
+                              </TypographyStylesProvider>
 
                               <Group mt={20}>
                                 {question.tags.map((tag) => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Router from "./Router";
 import { MantineProvider, ColorSchemeProvider } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import "./index.css";
 
 import { useLocalStorage } from "@mantine/hooks";
@@ -28,13 +29,14 @@ function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <HeaderMiddle
-          links={attributes}
-          isLoggedIn={isValidToken()}
-          loggedInUser={saveUser}
-          loading={false}
-        />
-
+        <NotificationsProvider>
+          <HeaderMiddle
+            links={attributes}
+            isLoggedIn={isValidToken()}
+            loggedInUser={saveUser}
+            loading={false}
+          />
+        </NotificationsProvider>
         <Router />
       </MantineProvider>
     </ColorSchemeProvider>

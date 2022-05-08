@@ -12,6 +12,7 @@ import CollectiveInformation from "./pages/collective.info";
 import QuestionsTagged from "./pages/questiontags";
 import DisplayAllQuestions from "./pages/allquestions";
 import UserProfile from "./pages/userProfile";
+import CollectivePost from "./pages/collective.post";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -34,6 +35,8 @@ function Router() {
     { path: "collecives", element: <Collectives /> },
     { path: "questions", element: <DisplayAllQuestions /> },
     { path: "question/:slug", element: <Post /> },
+    { path: "post/:slug", element: <CollectivePost /> },
+
     { path: "tag/:slug", element: <QuestionsTagged /> },
     { path: "profile", element: <UserProfile /> },
     { path: "collective/:slug", element: <CollectiveInformation /> },

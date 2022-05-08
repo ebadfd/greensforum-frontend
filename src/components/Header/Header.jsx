@@ -12,8 +12,6 @@ import {
   Box,
   Modal,
   Avatar,
-
-
 } from "@mantine/core";
 
 import { useBooleanToggle } from "@mantine/hooks";

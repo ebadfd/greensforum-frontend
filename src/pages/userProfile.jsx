@@ -2,22 +2,19 @@ import React from "react";
 import {
   createStyles,
   Title,
+  Textarea,
   Container,
   Text,
-  UnstyledButton,
-  Overlay,
-  SimpleGrid,
   Grid,
   Avatar,
   Button,
   Paper,
-    TextInput,
-    Group, 
-    Checkbox,
+  TextInput,
   Anchor,
-  PasswordInput,
-
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
+import { useLocalStorage } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -124,71 +121,110 @@ const useStyles = createStyles((theme) => ({
 
 export default function UserProfile() {
   const { classes } = useStyles();
+  const [user, setUser] = useLocalStorage({ key: "user" });
 
-  const name = "dasith312313817312";
-  return (
-    <Container className={classes.wrapper} size="lg">
-      <div className={classes.header}>
-        <Title className={classes.title}>dasithvidanae@localhost.com</Title>
-        <Title className={classes.titleOverlay} role="presentation">
-          {name.substring(0, 7)}
-        </Title>
-      </div>
+  if (!user) {
+    return <h1> please login </h1>;
+  } else {
+    const form = useForm({
+      initialValues: {
+        name: "",
+        description: "",
+      },
+    });
 
-      <Grid grow gutter="sm" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        <Grid.Col span={4}>
-          <Paper
-            radius="md"
-            withBorder
-            p="lg"
-            sx={(theme) => ({
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[8]
-                  : theme.white,
-            })}
-          >
-            <Avatar
-              src={"http://example.com"}
-              size={120}
-              radius={120}
-              mx="auto"
-            />
-            <Text align="center" size="lg" weight={500} mt="md">
-              dasith
-            </Text>
-            <Text align="center" color="dimmed" size="sm">
-              daith vidanage
-            </Text>
+    const HandleFormSubmission = (values) => {
+      console.log(values);
+      showNotification({
+        title: "Default notification",
+        message: "Hey there, your code is awesome! 🤥",
+      });
+    };
 
-            <Button variant="default" fullWidth mt="md">
-              update profile picture
-            </Button>
-          </Paper>
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <Paper
-            radius="md"
-            withBorder
-            p="xl"
-            sx={(theme) => ({
-              backgroundColor:
-                theme.colorScheme === "dark"
-                  ? theme.colors.dark[8]
-                  : theme.white,
-            })}
-          >
+    return (
+      <Container className={classes.wrapper} size="lg">
+        <div className={classes.header}>
+          <Title className={classes.title}>{user.email}</Title>
+          <Title className={classes.titleOverlay} role="presentation">
+            {user.username.substring(0, 8)}
+          </Title>
+        </div>
 
+        <Grid grow gutter="sm" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+          <Grid.Col span={4}>
+            <Paper
+              radius="md"
+              withBorder
+              p="lg"
+              sx={(theme) => ({
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[8]
+                    : theme.white,
+              })}
+            >
+              <Avatar
+                src={user.account.profile_image}
+                size={120}
+                radius={120}
+                mx="auto"
+              />
+              <Text align="center" size="lg" weight={500} mt="md">
+                {user.account.name}
+              </Text>
+              <Text align="center" color="dimmed" size="sm">
+                {user.email}
+              </Text>
 
-        <TextInput label="Email" placeholder="you@mantine.dev" required />
-        <PasswordInput label="Password" placeholder="Your password" required mt="md" />
-        <Button fullWidth mt="xl">
-          Sign in
-        </Button>
-
-          </Paper>
-        </Grid.Col>
-      </Grid>
-    </Container>
-  );
+              <Button
+                variant="default"
+                fullWidth
+                mt="md"
+                component={Anchor}
+                href="https://en.gravatar.com/"
+              >
+                Update profile Picture
+              </Button>
+            </Paper>
+            <br />
+          </Grid.Col>
+          <Grid.Col span={8}>
+            <Paper
+              radius="md"
+              withBorder
+              p="xl"
+              sx={(theme) => ({
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[8]
+                    : theme.white,
+              })}
+            >
+              <form
+                onSubmit={form.onSubmit((values) =>
+                  HandleFormSubmission(values)
+                )}
+              >
+                <TextInput
+                  label="Display Name"
+                  placeholder="your name"
+                  mt={"md"}
+                  {...form.getInputProps("name")}
+                />
+                <Textarea
+                  placeholder="your description"
+                  label="Description"
+                  mt="md"
+                  {...form.getInputProps("description")}
+                />
+                <Button fullWidth mt="xl" type="submit">
+                  Save
+                </Button>
+              </form>
+            </Paper>
+          </Grid.Col>
+        </Grid>
+      </Container>
+    );
+  }
 }

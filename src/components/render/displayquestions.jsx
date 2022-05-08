@@ -21,7 +21,7 @@ export default function DisplayQuestions({ questions, loading, notfound }) {
               })}
             </>
           ) : (
-            <Text size="xs">{notfound}</Text>
+            <p>{notfound}</p>
           )}
         </>
       )}

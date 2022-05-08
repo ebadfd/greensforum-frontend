@@ -13,6 +13,7 @@ import QuestionsTagged from "./pages/questiontags";
 import DisplayAllQuestions from "./pages/allquestions";
 import UserProfile from "./pages/userProfile";
 import CollectivePost from "./pages/collective.post";
+import MembersofCollective from "./pages/collective.members"
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -39,7 +40,9 @@ function Router() {
 
     { path: "tag/:slug", element: <QuestionsTagged /> },
     { path: "profile", element: <UserProfile /> },
+
     { path: "collective/:slug", element: <CollectiveInformation /> },
+    { path: "collective/:slug/members", element: <MembersofCollective /> },
   ]);
 
   return routes;

@@ -38,7 +38,6 @@ export default function CollectiveInformation() {
 
   useEffect(() => {
     fetchData();
-    console.log("==================== questions ==================");
     console.log(questions);
   }, []);
 
@@ -51,7 +50,7 @@ export default function CollectiveInformation() {
       <Paper p="md">
         <Grid>
           <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
+          <Grid.Col span={9}>
             <Group position="right">
               <Group position="left">
                 <Button
@@ -71,7 +70,7 @@ export default function CollectiveInformation() {
 
         <Grid mt={10}>
           <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
+          <Grid.Col span={9}>
             <Paper shadow="xl" radius="md">
               <Grid grow gutter="xs">
                 <Grid.Col span={1}>
@@ -80,7 +79,8 @@ export default function CollectiveInformation() {
               </Grid>
             </Paper>
           </Grid.Col>
-          <Grid.Col span={2}>
+          {/* 
+ <Grid.Col span={2}>
             <Paper shadow="xl" radius="md" p="md" withBorder>
               <Grid grow gutter="xs">
                 <Grid.Col span={1}>
@@ -123,6 +123,7 @@ export default function CollectiveInformation() {
               </Grid>
             </Paper>
           </Grid.Col>
+            */}
         </Grid>
 
         <Grid>
@@ -141,7 +142,10 @@ export default function CollectiveInformation() {
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
             <Tabs variant="outline" tabPadding="lg">
-              <Tabs.Tab label="Questions">questions will be here</Tabs.Tab>
+              <Tabs.Tab label="Questions">
+                {" "}
+                <DisplayQuestions questions={questions} loading={loading} />
+              </Tabs.Tab>
               <Tabs.Tab label="Atricles">
                 <DisplayPosts questions={questions} loading={loading} />
               </Tabs.Tab>
@@ -186,6 +190,36 @@ function DisplayPosts({ questions, loading }) {
               <>
                 {questions.Post.map((q) => {
                   return <PostCard props={q} />;
+                })}
+              </>
+            ) : (
+              <h1> no results found.</h1>
+            )}
+          </>
+        )}
+      </ScrollArea>
+    );
+  }
+}
+
+function DisplayQuestions({ questions, loading }) {
+  if (!questions) {
+    return <h1> no questions </h1>;
+  } else {
+    return (
+      <ScrollArea style={{ height: 700 }}>
+        {loading ? (
+          <>
+            {[...Array(10)].map(() => (
+              <LoadingPost />
+            ))}
+          </>
+        ) : (
+          <>
+            {questions.questions.length > 0 ? (
+              <>
+                {questions.questions.map((q) => {
+                  return <ForumCard props={q} />;
                 })}
               </>
             ) : (

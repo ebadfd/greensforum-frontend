@@ -23,7 +23,10 @@ import { isValidToken } from "./authtoken";
 import { Search, ArrowUp } from "tabler-icons-react";
 
 function App() {
-  const [colorScheme, setColorScheme] = useLocalStorage({ key: 'color-scheme', defaultValue: 'dark' });
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    key: "color-scheme",
+    defaultValue: "dark",
+  });
   const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });
   const [scroll, scrollTo] = useWindowScroll();
   const [opened, setOpened] = useState(false);
@@ -80,6 +83,7 @@ function App() {
 
             <Text> some information about how to search </Text>
           </Modal>
+          {/*
 
           <HeaderMiddle
             links={attributes}
@@ -87,6 +91,7 @@ function App() {
             loggedInUser={saveUser}
             loading={false}
           />
+          */}
         </NotificationsProvider>
         <Router />
 

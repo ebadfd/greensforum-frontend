@@ -12,6 +12,7 @@ import {
   ActionIcon,
   Button,
   Tooltip,
+  Anchor,
 } from "@mantine/core";
 import {
   Bulb,
@@ -144,9 +145,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const links = [
-  { icon: Bulb, label: "Activity", notifications: 3 },
-  { icon: Checkbox, label: "Tasks", notifications: 4 },
-  { icon: User, label: "Contacts" },
+  { icon: Bulb, label: "Feed", notifications: 3 , path:'/'},
+  { icon: Checkbox, label: "Questions", notifications: 4 , path: '/questions'},
+  { icon: User, label: "Collectives" , path:"/collecives"},
 ];
 
 const collections = [
@@ -169,13 +170,8 @@ export function ApplicationNav({ opened }) {
     <UnstyledButton key={link.label} className={classes.mainLink}>
       <div className={classes.mainLinkInner}>
         <link.icon size={20} className={classes.mainLinkIcon} />
-        <span>{link.label}</span>
+      <Text component={Link} to={link.path}> {link.label}  </Text>
       </div>
-      {link.notifications && (
-        <Badge size="sm" variant="filled" className={classes.mainLinkBadge}>
-          {link.notifications}
-        </Badge>
-      )}
     </UnstyledButton>
   ));
 

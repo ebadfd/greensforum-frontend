@@ -142,7 +142,7 @@ export default function UserProfile() {
     };
 
     return (
-      <Container className={classes.wrapper} size="lg">
+      <Container className={classes.wrapper} size="xl">
         <div className={classes.header}>
           <Title className={classes.title}>{user.email}</Title>
           <Title className={classes.titleOverlay} role="presentation">

@@ -31,7 +31,7 @@ import { Skeleton } from "@mantine/core";
 function Router() {
   let routes = useRoutes([
     {
-      path: "/",
+      path: "/old/",
       element: (
         <RequireAuth>
           <HomePage />
@@ -45,8 +45,9 @@ function Router() {
       element: <ApplicationLayout mainContent={<SearchPage />} />,
     },
     {
-      path: "beta/home",
-      element: <ApplicationLayout mainContent={<HomePagev2 />} />,
+      path: "/",
+      element:        <RequireAuth>
+ <ApplicationLayout mainContent={<HomePagev2 />} /> </RequireAuth>,
     },
 
     {
@@ -98,10 +99,10 @@ function Router() {
     },
     { path: "tag/:slug", element: <QuestionsTagged /> },
 
-    { path: "profile", element: <UserProfile /> },
-    { path: "user/unaproved", element: <UserUnaprovedPosts /> },
+    { path: "profile", element: <ApplicationLayout mainContent={<UserProfile />}/> },
+    { path: "user/unaproved", element: <ApplicationLayout mainContent={<UserUnaprovedPosts /> } />},
 
-    { path: "settings", element: <Settings /> },
+    { path: "settings", element: <ApplicationLayout mainContent={<Settings />} /> },
   ]);
 
   return routes;
@@ -114,7 +115,7 @@ function RequireAuth({ children }) {
   let valid_token = isValidToken();
 
   if (!valid_token) {
-    return <h1> please login </h1>;
+    return <h1> please login from <a href="/login"> here </a></h1>;
   }
 
   const getUser = async () => {

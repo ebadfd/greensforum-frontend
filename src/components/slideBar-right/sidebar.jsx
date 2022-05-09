@@ -33,8 +33,6 @@ function SideBarRight() {
     }
   }
 
-  console.log(user);
-
   return (
     <>
       {loading ? (

@@ -6,7 +6,6 @@ import LoadingPost from "../ForumCard/loading";
 export default function DisplayQuestions({ questions, loading, notfound }) {
   return (
     <>
-      <ScrollArea style={{ height: 750 }}>
         {loading ? (
           <>
             {[...Array(10)].map(() => (
@@ -26,7 +25,6 @@ export default function DisplayQuestions({ questions, loading, notfound }) {
             )}
           </>
         )}
-      </ScrollArea>
     </>
   );
 }

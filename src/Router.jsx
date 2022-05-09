@@ -18,7 +18,10 @@ import CreateArticleOnCollective from "./pages/collective.article.write";
 import UnaprovedPosts from "./pages/collective.unaproved.post";
 import UserUnaprovedPosts from "./pages/user.unaproved.post";
 import Settings from "./pages/settings";
+
+// new components for v2
 import ApplicationLayout from "./layouts/index";
+import HomePagev2 from "./pages/v2/index"
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
@@ -36,7 +39,7 @@ function Router() {
     { path: "login", element: <Login /> },
     { path: "register", element: <Register /> },
     { path: "search", element: <SearchPage /> },
-    { path: "test", element: <ApplicationLayout /> },
+    { path: "beta/home", element: <ApplicationLayout mainContent={<HomePagev2/>} /> },
 
     { path: "create", element: <CreatePost /> },
     { path: "collecives", element: <Collectives /> },

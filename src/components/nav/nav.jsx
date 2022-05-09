@@ -4,11 +4,13 @@ import {
   Navbar,
   TextInput,
   Code,
+  Space,
   UnstyledButton,
   Badge,
   Text,
   Group,
   ActionIcon,
+  Button,
   Tooltip,
 } from "@mantine/core";
 import {
@@ -24,6 +26,7 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import { isValidToken } from "../../authtoken";
 import { UserProfile } from "./user";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -196,7 +199,34 @@ export function ApplicationNav({ opened }) {
       hidden={!opened}
     >
       <Navbar.Section className={classes.section}>
-        {isValidToken() ? <UserProfile loggedInUser={saveUser} /> : <> </>}
+        {isValidToken() ? (
+          <UserProfile loggedInUser={saveUser} />
+        ) : (
+          <>
+            <Space h="lg" />
+            <Group position="center" spacing="xl">
+              <Button
+                variant="subtle"
+                mr={10}
+                type="reset"
+                color="green"
+                component={Link}
+                to="/login"
+              >
+                Login
+              </Button>
+              <Button
+                color="green"
+                onClick={() => setModelOpen(true)}
+                variant="light"
+              >
+                Register
+              </Button>
+            </Group>
+
+            <Space h="lg" />
+          </>
+        )}
       </Navbar.Section>
 
       <TextInput

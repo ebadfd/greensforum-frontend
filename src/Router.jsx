@@ -5,9 +5,7 @@ import HomePage from "./pages/index";
 import Login from "./pages/login";
 import Post from "./pages/post";
 import Register from "./pages/register";
-import SearchPage from "./pages/search";
-import CreatePost from "./pages/create";
-import Collectives from "./pages/collecives";
+
 import CollectiveInformation from "./pages/collective.info";
 import QuestionsTagged from "./pages/questiontags";
 import DisplayAllQuestions from "./pages/allquestions";
@@ -21,10 +19,14 @@ import Settings from "./pages/settings";
 
 // new components for v2
 import ApplicationLayout from "./layouts/index";
-import HomePagev2 from "./pages/v2/index"
+import HomePagev2 from "./pages/v2/index";
+import CreatePost from "./pages/v2/create";
+import SearchPage from "./pages/search";
+import Collectives from "./pages/collecives";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
+import { Skeleton } from "@mantine/core";
 
 function Router() {
   let routes = useRoutes([
@@ -38,29 +40,68 @@ function Router() {
     },
     { path: "login", element: <Login /> },
     { path: "register", element: <Register /> },
-    { path: "search", element: <SearchPage /> },
-    { path: "beta/home", element: <ApplicationLayout mainContent={<HomePagev2/>} /> },
+    {
+      path: "search",
+      element: <ApplicationLayout mainContent={<SearchPage />} />,
+    },
+    {
+      path: "beta/home",
+      element: <ApplicationLayout mainContent={<HomePagev2 />} />,
+    },
 
-    { path: "create", element: <CreatePost /> },
-    { path: "collecives", element: <Collectives /> },
-    { path: "questions", element: <DisplayAllQuestions /> },
-    { path: "question/:slug", element: <Post /> },
-    { path: "post/:slug", element: <CollectivePost /> },
-
-    { path: "tag/:slug", element: <QuestionsTagged /> },
-    { path: "profile", element: <UserProfile /> },
-    { path: "user/unaproved", element: <UserUnaprovedPosts /> },
-
-    { path: "settings", element: <Settings /> },
-
-    { path: "collective/:slug", element: <CollectiveInformation /> },
-    { path: "collective/:slug/unaproved", element: <UnaprovedPosts /> },
-
+    {
+      path: "collecives",
+      element: <ApplicationLayout mainContent={<Collectives />} />,
+    },
+    {
+      path: "collective/:slug",
+      element: <ApplicationLayout mainContent={<CollectiveInformation />} />,
+    },
+    {
+      path: "collective/:slug/unaproved",
+      element: <ApplicationLayout mainContent={<UnaprovedPosts />} />,
+    },
+    {
+      path: "collective/:slug/members",
+      element: <ApplicationLayout mainContent={<MembersofCollective />} />,
+    },
     {
       path: "collective/:slug/article/write",
       element: <CreateArticleOnCollective />,
     },
-    { path: "collective/:slug/members", element: <MembersofCollective /> },
+
+    {
+      path: "post/:slug",
+      element: <ApplicationLayout mainContent={<CollectivePost />} />,
+    },
+    { path: "create", element: <CreatePost /> },
+
+    {
+      path: "questions",
+      element: (
+        <ApplicationLayout
+          mainContent={<DisplayAllQuestions />}
+          displaySideBar={true}
+          SideBarDisplayComponent={<NothingHereYet />}
+        />
+      ),
+    },
+    {
+      path: "question/:slug",
+      element: (
+        <ApplicationLayout
+          mainContent={<Post />}
+          displaySideBar={true}
+          SideBarDisplayComponent={<p> sudgest posts </p>}
+        />
+      ),
+    },
+    { path: "tag/:slug", element: <QuestionsTagged /> },
+
+    { path: "profile", element: <UserProfile /> },
+    { path: "user/unaproved", element: <UserUnaprovedPosts /> },
+
+    { path: "settings", element: <Settings /> },
   ]);
 
   return routes;
@@ -93,6 +134,10 @@ function RequireAuth({ children }) {
   }
 
   return children;
+}
+
+function NothingHereYet() {
+  return <Skeleton height={400} />;
 }
 
 export default Router;

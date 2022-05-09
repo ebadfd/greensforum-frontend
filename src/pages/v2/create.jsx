@@ -13,15 +13,14 @@ import {
 } from "@mantine/core";
 import { RichTextEditor } from "@mantine/rte";
 import { useForm } from "@mantine/form";
-import { useParams } from "react-router-dom";
 
-import { isValidToken, getAuthStorage } from "../authtoken";
-import { config } from "../config";
-import { LoginForm } from "../components/Login/login";
-import { showNotification } from "@mantine/notifications";
-import ApplicationLayout from "../layouts";
+import { Check, X } from "tabler-icons-react";
+import { isValidToken, getAuthStorage } from "../../authtoken";
+import { config } from "../../config";
+import { LoginForm } from "../../components/Login/login";
+import ApplicationLayout from "../../layouts/index";
 
-export default function CreateArticleOnCollective() {
+export default function CreatePost() {
   return (
     <ApplicationLayout
       mainContent={<Editor />}
@@ -33,9 +32,9 @@ export default function CreateArticleOnCollective() {
 
 function Editor() {
   const [opened, setOpened] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [appErrors, setappErrors] = useState(null);
   const [value, onChange] = useState(" ");
-
-  const { slug } = useParams();
 
   const form = useForm({
     initialValues: {
@@ -51,21 +50,26 @@ function Editor() {
     }
     // check if post body is empty
     if (value == "<p><br></p>") {
-      showNotification({
-        title: "Validation Error",
-        message:
+      setappErrors({
+        error: "Validation Error",
+        details:
           "post body is empty. make sure you have content on the post body",
-        color: "red",
       });
+      setSuccess(false);
       return;
     }
 
     let tags = values.tags.split(",");
+    let tags_submission = [];
+
+    tags.map((tag) => {
+      tags_submission.push({ name: tag });
+    });
 
     const data = {
       title: values.title,
       body: value,
-      tags: tags,
+      tags: tags_submission,
     };
 
     /* submit the form */
@@ -84,26 +88,17 @@ function Editor() {
       redirect: "follow",
     };
 
-    fetch(`${config.v1}collectives/${slug}/post/write`, requestOptions)
+    fetch(`${config.v1}question/create`, requestOptions)
       .then((result) => result.json())
       .then((data) => {
         if (data.error) {
-          showNotification({
-            title: data.error,
-            message: data.details,
-            color: "red",
-          });
-
+          setSuccess(false);
+          setappErrors(data);
           return;
         } else {
           console.log(data);
-
-          showNotification({
-            title: "Article Submitted",
-            message:
-              "Article submitted for review, click on your profile icon to view submission status",
-            color: "teal",
-          });
+          setappErrors(null);
+          setSuccess(true);
         }
       });
 
@@ -119,12 +114,45 @@ function Editor() {
       >
         <LoginForm />
       </Modal>
-      <h1> Propose an article for {slug} </h1>
+      <h1> Ask a public question </h1>
 
       <form onSubmit={form.onSubmit((values) => HandlePostCreation(values))}>
         <Paper shadow="xl" p="md" withBorder>
+          {appErrors ? (
+            <>
+              <Notification
+                title={appErrors.error}
+                disallowClose
+                color="red"
+                mb={20}
+                icon={<X size={18} />}
+              >
+                {appErrors.details}
+              </Notification>
+            </>
+          ) : (
+            <></>
+          )}
+
+          {success ? (
+            <>
+              <Notification
+                icon={<Check size={18} />}
+                mb={20}
+                color="teal"
+                title="Question added successfully!!"
+                disallowClose
+              >
+                Your question has been added successfully. thanks for your
+                contribution
+              </Notification>
+            </>
+          ) : (
+            <></>
+          )}
           <Text weight={500} size="lg" mb={10}>
-            Title
+            {" "}
+            Title{" "}
           </Text>
           <TextInput
             placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
@@ -140,14 +168,14 @@ function Editor() {
           <br />
 
           <Text weight={500} size="lg" mb={10}>
-            Body{" "}
+            Body
           </Text>
 
           <RichTextEditor value={value} onChange={onChange} />
           <br />
           <Text size="xs">
             Include all the information someone would need to answer your
-            question{" "}
+            question
           </Text>
 
           <br />
@@ -166,7 +194,7 @@ function Editor() {
         </Paper>
 
         <Button size="sm" mt={20} type="submit">
-          Submit for Review
+          Post your Question
         </Button>
       </form>
     </>
@@ -176,7 +204,10 @@ function Editor() {
 function DisplayHelpMessage() {
   return (
     <>
-      <Text>Guidelines</Text>
+      <Text>
+        The community is here to help you with specific problem related to your
+        university work.Avoid asking opinion-based questions.
+      </Text>
 
       <br />
 
@@ -184,8 +215,7 @@ function DisplayHelpMessage() {
         <Accordion.Item label="Summarize the problem">
           <List>
             <List.Item>Include details about your goal</List.Item>
-
-            <List.Item> Describe expected and actual results</List.Item>
+            <List.Item>Describe expected and actual results</List.Item>
 
             <List.Item>Include any error messages </List.Item>
           </List>

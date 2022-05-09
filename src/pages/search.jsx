@@ -26,14 +26,13 @@ export default function SearchPage() {
 
   const height = 400;
   return (
-    <Paper p="md">
+    <>
       <Grid>
-        <Grid.Col span={2}>{}</Grid.Col>
-        <Grid.Col span={7}>
+        <Grid.Col span={1}>{}</Grid.Col>
+        <Grid.Col span={10}>
           <Group position="apart">
             <h1> Search Results </h1>
             <Button component={Link} to="/create">
-              {" "}
               Ask Question{" "}
             </Button>
           </Group>
@@ -43,18 +42,15 @@ export default function SearchPage() {
       </Grid>
 
       <Grid>
-        <Grid.Col span={2}>{}</Grid.Col>
-        <Grid.Col span={7}>
+        <Grid.Col span={1}>{}</Grid.Col>
+        <Grid.Col span={10}>
           <DisplayQuestions
             loading={loading}
             questions={questions}
             notfound={" no results found."}
           />
         </Grid.Col>
-        <Grid.Col span={2}>
-          <Skeleton height={height} />
-        </Grid.Col>
       </Grid>
-    </Paper>
+    </>
   );
 }

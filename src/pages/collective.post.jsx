@@ -5,6 +5,7 @@ import {
   createStyles,
   Skeleton,
   TypographyStylesProvider,
+  Box,
 } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { GetCollectivePostbySlug } from "../services/post.slug";
@@ -42,34 +43,31 @@ export default function CollectivePost() {
     fetchData();
   }, []);
 
-  console.log(question);
-
   return (
-    <Container size="sm" className={classes.wrapper}>
-      {loading ? (
-        <Skeleton height={400} />
-      ) : (
-        <>
-          {question ? (
-            <>
-              <Title align="center" className={classes.title}>
-                {" "}
-                {question.title}{" "}
-              </Title>
+    <>
+      <Box p={30}>
+        {loading ? (
+          <Skeleton height={400} />
+        ) : (
+          <>
+            {question ? (
+              <>
+                <Title className={classes.title}> {question.title} </Title>
 
-              <TypographyStylesProvider>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(question.body),
-                  }}
-                />
-              </TypographyStylesProvider>
-            </>
-          ) : (
-            <>404 question not found</>
-          )}
-        </>
-      )}
-    </Container>
+                <TypographyStylesProvider>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(question.body),
+                    }}
+                  />
+                </TypographyStylesProvider>
+              </>
+            ) : (
+              <>404 question not found</>
+            )}
+          </>
+        )}
+      </Box>
+    </>
   );
 }

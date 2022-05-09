@@ -29,10 +29,9 @@ export default function MembersofCollective() {
     return <h1> 404 </h1>;
   } else {
     return (
-      <Paper p="md">
+      <>
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={9}>
+          <Grid.Col span={12}>
             <Group position="right">
               <Group position="left">
                 <Button
@@ -56,16 +55,13 @@ export default function MembersofCollective() {
           </Grid.Col>
         </Grid>
 
-        <Grid mt={10}>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={9}>
-            <Paper radius="md">
-              <Grid grow gutter="xs">
-                <Grid.Col span={1}>
-                  <ImageActionBanner props={questions} isBig={true} />
-                </Grid.Col>
-              </Grid>
-            </Paper>
+        <Grid mt={12}>
+          <Grid.Col span={12}>
+            <Grid grow gutter="xs">
+              <Grid.Col span={1}>
+                <ImageActionBanner props={questions} isBig={true} />
+              </Grid.Col>
+            </Grid>
           </Grid.Col>
         </Grid>
 
@@ -73,10 +69,10 @@ export default function MembersofCollective() {
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
             <Text weight={700} size="xl" mt={20} mb={10}>
-              Questions and Posts
+              Members of {slug}
             </Text>
             <Text size="sm" mb={10}>
-              Browse questions and posts with relevant {questions.name} tags
+              View members of {slug}
             </Text>
           </Grid.Col>
         </Grid>
@@ -84,11 +80,13 @@ export default function MembersofCollective() {
         <Grid>
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
-            <h1> memebers </h1>
+            <Text size="sm" mb={10}>
+              members will be here
+            </Text>
           </Grid.Col>
           <Grid.Col span={2}></Grid.Col>
         </Grid>
-      </Paper>
+      </>
     );
   }
 }

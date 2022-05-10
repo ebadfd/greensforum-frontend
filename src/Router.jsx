@@ -27,6 +27,7 @@ import Collectives from "./pages/collecives";
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
 import { Skeleton } from "@mantine/core";
+import CreateCollective from "./pages/v2/create.collective"
 
 function Router() {
   let routes = useRoutes([
@@ -54,6 +55,12 @@ function Router() {
       path: "collecives",
       element: <ApplicationLayout mainContent={<Collectives />} />,
     },
+
+    {
+      path: "create/collecives",
+      element: <ApplicationLayout mainContent={<CreateCollective />} />,
+    },
+
     {
       path: "collective/:slug",
       element: <ApplicationLayout mainContent={<CollectiveInformation />} />,

@@ -34,9 +34,16 @@ export default function HomePagev2() {
           <Grid.Col xs={9}>
             <Group position="apart">
               <h1> Top Questions For You </h1>
-              <Button component={Link} to="/create">
-                Ask Question{" "}
-              </Button>
+
+              <Group>
+                <Button component={Link} to="/create" variant="default">
+                  Browse Questions
+                </Button>
+
+                <Button component={Link} to="/create">
+                  Ask Question{" "}
+                </Button>
+              </Group>
             </Group>
             <DisplayQuestions
               loading={loading}

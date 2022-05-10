@@ -244,8 +244,8 @@ export function ApplicationNav({ opened }) {
           <Text size="xs" weight={500} color="dimmed">
             Collections
           </Text>
-          <Tooltip label="Create collection" withArrow position="right">
-            <ActionIcon variant="default" size={18}>
+          <Tooltip label="Create collective" withArrow position="right">
+            <ActionIcon variant="default" size={18} component={Link} to="/create/collecives">
               <Plus size={12} />
             </ActionIcon>
           </Tooltip>

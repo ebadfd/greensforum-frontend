@@ -219,7 +219,7 @@ export function RegisterForm() {
             {...form.getInputProps("descrption")}
           />
 
-          <Button fullWidth mt="xl" size="md" type="submit">
+          <Button fullWidth mt="xl" size="md" type="submit" color="green">
             Register
           </Button>
         </form>

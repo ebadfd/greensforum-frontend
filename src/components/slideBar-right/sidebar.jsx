@@ -14,7 +14,7 @@ function SideBarRight() {
   let valid_token = isValidToken();
 
   if (!valid_token) {
-    navigate("/", Replace);
+    navigate("/", { replace: true });
   }
 
   const getUser = async () => {
@@ -32,8 +32,6 @@ function SideBarRight() {
       navigate("/", { replace: true });
     }
   }
-
-  console.log(user);
 
   return (
     <>

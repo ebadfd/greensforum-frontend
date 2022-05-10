@@ -7,6 +7,7 @@ import {
   Group,
   Button,
   ScrollArea,
+  Center,
 } from "@mantine/core";
 
 import ForumCard from "../components/ForumCard/card";
@@ -39,23 +40,27 @@ export default function CollectiveInformation() {
   }, []);
 
   if (!questions) {
-    return <h1> 404 </h1>;
+    return (
+      <Center style={{ width: 400, height: 200 }}>
+        <h1> 404 </h1>
+      </Center>
+    );
   } else {
     return (
-      <Paper p="md">
+      <>
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={9}>
+          <Grid.Col span={12}>
             <Group position="right">
               <Group position="left">
                 <Button
                   component={Link}
                   to={`/collective/${slug}/article/write`}
                   variant="outline"
+        color="green"
                 >
                   Submit a Article
                 </Button>
-                <Button component={Link} to="/create" variant="outline">
+                <Button component={Link} to="/create" variant="outline" color="green">
                   Ask Question
                 </Button>
 
@@ -70,20 +75,13 @@ export default function CollectiveInformation() {
         </Grid>
 
         <Grid mt={10}>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={9}>
-            <Paper radius="md">
-              <Grid grow gutter="xs">
-                <Grid.Col span={1}>
-                  <ImageActionBanner props={questions} isBig={true} />
-                </Grid.Col>
-              </Grid>
-            </Paper>
+          <Grid.Col span={12}>
+            <ImageActionBanner props={questions} isBig={true} />
           </Grid.Col>
         </Grid>
 
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
+          <Grid.Col span={1}>{}</Grid.Col>
           <Grid.Col span={7}>
             <Text weight={700} size="xl" mt={20} mb={10}>
               Questions and Posts
@@ -95,7 +93,7 @@ export default function CollectiveInformation() {
         </Grid>
 
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
+          <Grid.Col span={1}>{}</Grid.Col>
           <Grid.Col span={7}>
             <Tabs variant="outline" tabPadding="lg">
               <Tabs.Tab label="Questions">
@@ -106,7 +104,7 @@ export default function CollectiveInformation() {
               </Tabs.Tab>
             </Tabs>
           </Grid.Col>
-          <Grid.Col span={2}>
+          <Grid.Col span={3}>
             <ArticleCardImage
               name={questions.name}
               title="something here"
@@ -121,7 +119,7 @@ export default function CollectiveInformation() {
             />
           </Grid.Col>
         </Grid>
-      </Paper>
+      </>
     );
   }
 }

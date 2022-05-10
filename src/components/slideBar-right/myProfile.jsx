@@ -71,7 +71,7 @@ const useStyles = createStyles((theme) => ({
 const mockdata = [
   { title: "Ask Question", icon: QuestionMark, color: "violet" },
   { title: "Discover Communities", icon: BuildingBank, color: "indigo" },
-  { title: "Join Communities", icon: UserPlus, color: "blue" },
+  { title: "Join Communities", icon: UserPlus, color: "green" },
   { title: "Write Posts", icon: Receipt, color: "pink" },
   { title: "Answer Questions", icon: Sticker, color: "red" },
   { title: "Experiance Recommandations", icon: MoodSuprised, color: "orange" },

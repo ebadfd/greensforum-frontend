@@ -25,6 +25,7 @@ import {
 // import { UserProfile } from "./user"
 
 import { useLocalStorage } from "@mantine/hooks";
+import { showNotification } from "@mantine/notifications";
 import { isValidToken } from "../../authtoken";
 import { UserProfile } from "./user";
 import { Link } from "react-router-dom";
@@ -166,22 +167,24 @@ const collections = [
 export function ApplicationNav({ opened }) {
   const { classes } = useStyles();
   const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });
-  const [savedCollectives, setSaveCollectives] = useLocalStorage({ key: "collectives" });
+  const [savedCollectives, setSaveCollectives] = useLocalStorage({
+    key: "collectives",
+  });
 
   const [collectives, setCollectives] = useState(null);
 
   const fetchData = async () => {
     let data = await ViewCollectives();
     setCollectives(data);
-      setSaveCollectives(data)
+    setSaveCollectives(data);
   };
 
   useEffect(() => {
-    if(!savedCollectives){
-        console.log("======== fetch and save collectives collectives =========")
-        fetchData();
-    } 
-    setCollectives(savedCollectives)
+    if (!savedCollectives) {
+      console.log("======== fetch and save collectives collectives =========");
+      fetchData();
+    }
+    setCollectives(savedCollectives);
   }, []);
 
   const mainLinks = links.map((link) => (
@@ -293,7 +296,9 @@ export function ApplicationNav({ opened }) {
           </Tooltip>
         </Group>
         {collectives ? (
-          <div className={classes.collections}><CollectionLinks collections={collectives}/></div>
+          <div className={classes.collections}>
+            <CollectionLinks collections={collectives} />
+          </div>
         ) : (
           <> </>
         )}

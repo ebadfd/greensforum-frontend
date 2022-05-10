@@ -3,6 +3,7 @@ import {
   AppShell,
   Image,
   Header,
+  Alert,
   Aside,
   Text,
   MediaQuery,
@@ -52,23 +53,25 @@ export default function ApplicationLayout({
         </>
       }
       header={
-        <Header height={70} p="md">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => setOpened((o) => !o)}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-            <Image radius="sm" height={50} src="/nsbmlogo.svg" />
-            <SearhForm />
-          </div>
-        </Header>
+        <>
+          <Header height={70} p="md">
+            <div
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={opened}
+                  onClick={() => setOpened((o) => !o)}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
+              <Image radius="sm" height={50} src="/nsbmlogo.svg" />
+              <SearhForm />
+            </div>
+          </Header>
+        </>
       }
     >
       {mainContent}

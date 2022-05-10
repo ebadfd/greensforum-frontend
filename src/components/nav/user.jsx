@@ -7,8 +7,10 @@ import {
   User,
   Logout,
   ChevronRight,
+Lock, 
 } from "tabler-icons-react";
 import { Link } from "react-router-dom";
+import { isVerified } from "../../authtoken"
 
 export function UserProfile({ loggedInUser }) {
   return (
@@ -75,11 +77,23 @@ export function UserProfile({ loggedInUser }) {
             Profile
           </UnstyledButton>
         </Menu.Item>
+
+
         <Menu.Item icon={<Photo size={14} />}>
           <UnstyledButton component={Link} to={`/user/unaproved`}>
             Unaproved posts
           </UnstyledButton>
         </Menu.Item>
+
+      {loggedInUser.verified ? (
+        <Menu.Item icon={<Lock size={14} />}>
+          <UnstyledButton component={Link} to={`/user/mod/apply`}>
+          Apply for Moderator
+          </UnstyledButton>
+        </Menu.Item>
+      ): (<> </>)}
+
+
         <Menu.Item
           icon={<Search size={14} />}
           rightSection={

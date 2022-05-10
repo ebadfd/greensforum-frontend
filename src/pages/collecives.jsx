@@ -1,18 +1,16 @@
+
 import React, { useEffect, useState } from "react";
 import {
   Text,
   Title,
   SimpleGrid,
-  Container,
-  Loader,
   createStyles,
   Skeleton,
-  Paper,
   Box,
 } from "@mantine/core";
-import { CardWithStats } from "../components/collectiveCard/card";
 import { ImageActionBanner } from "../components/collectiveCard/newcard";
 
+import { useLocalStorage } from '@mantine/hooks';
 import { ViewCollectives } from "../services/collective.all";
 
 const useStyles = createStyles((theme) => ({
@@ -37,11 +35,13 @@ export default function Collectives() {
   const { classes } = useStyles();
   const [collectives, setCollectives] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [_ , setSaveCollectives] = useLocalStorage({ key: "collectives" });
 
   const fetchData = async () => {
     let data = await ViewCollectives();
     setCollectives(data);
     setLoading(false);
+      setSaveCollectives(data)
   };
 
   useEffect(() => {

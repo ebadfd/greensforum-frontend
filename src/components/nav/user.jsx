@@ -10,7 +10,6 @@ import {
 } from "tabler-icons-react";
 import { Link } from "react-router-dom";
 
-
 export function UserProfile({ loggedInUser }) {
   return (
     <Group position="center">
@@ -40,33 +39,32 @@ export function UserProfile({ loggedInUser }) {
             })}
           >
             {loggedInUser ? (
- <Group>
-              <Avatar src={loggedInUser.account.profile_image} radius="xl" />
+              <Group>
+                <Avatar src={loggedInUser.account.profile_image} radius="xl" />
 
-              <div style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                  {loggedInUser.username}
-                </Text>
+                <div style={{ flex: 1 }}>
+                  <Text size="sm" weight={500}>
+                    {loggedInUser.username}
+                  </Text>
 
-                <Text color="dimmed" size="xs">
-                  {loggedInUser.email}
-                </Text>
-              </div>
-            </Group>
-
-            ): (
-                <> </>
+                  <Text color="dimmed" size="xs">
+                    {loggedInUser.email}
+                  </Text>
+                </div>
+              </Group>
+            ) : (
+              <> </>
             )}
-                     </UnstyledButton>
+          </UnstyledButton>
         }
       >
-      {loggedInUser ? (
+        {loggedInUser ? (
           <>
-        <Menu.Label>Welcome {loggedInUser.username}</Menu.Label>
+            <Menu.Label>Welcome {loggedInUser.username}</Menu.Label>
           </>
-      ): (
+        ) : (
           <> </>
-      )}
+        )}
         <Menu.Item icon={<Settings size={14} />}>
           <UnstyledButton component={Link} to={`/settings`}>
             Settings

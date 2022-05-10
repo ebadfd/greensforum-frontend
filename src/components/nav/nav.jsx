@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   createStyles,
   Navbar,
@@ -28,6 +28,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import { isValidToken } from "../../authtoken";
 import { UserProfile } from "./user";
 import { Link } from "react-router-dom";
+import { ViewCollectives } from "../../services/collective.all";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -145,9 +146,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const links = [
-  { icon: Bulb, label: "Feed", notifications: 3 , path:'/'},
-  { icon: Checkbox, label: "Questions", notifications: 4 , path: '/questions'},
-  { icon: User, label: "Collectives" , path:"/collecives"},
+  { icon: Bulb, label: "Feed", notifications: 3, path: "/" },
+  { icon: Checkbox, label: "Questions", notifications: 4, path: "/questions" },
+  { icon: User, label: "Collectives", path: "/collecives" },
 ];
 
 const collections = [
@@ -165,27 +166,63 @@ const collections = [
 export function ApplicationNav({ opened }) {
   const { classes } = useStyles();
   const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });
+  const [savedCollectives, setSaveCollectives] = useLocalStorage({ key: "collectives" });
+
+  const [collectives, setCollectives] = useState(null);
+
+  const fetchData = async () => {
+    let data = await ViewCollectives();
+    setCollectives(data);
+      setSaveCollectives(data)
+  };
+
+  useEffect(() => {
+    if(!savedCollectives){
+        console.log("======== fetch and save collectives collectives =========")
+        fetchData();
+    } 
+    setCollectives(savedCollectives)
+  }, []);
 
   const mainLinks = links.map((link) => (
     <UnstyledButton key={link.label} className={classes.mainLink}>
       <div className={classes.mainLinkInner}>
         <link.icon size={20} className={classes.mainLinkIcon} />
-      <Text component={Link} to={link.path}> {link.label}  </Text>
+        <Text component={Link} to={link.path}>
+          {" "}
+          {link.label}{" "}
+        </Text>
       </div>
     </UnstyledButton>
   ));
 
-  const collectionLinks = collections.map((collection) => (
-    <a
-      href="/"
-      onClick={(event) => event.preventDefault()}
-      key={collection.label}
-      className={classes.collectionLink}
-    >
-      <span style={{ marginRight: 9, fontSize: 16 }}>{collection.emoji}</span>{" "}
-      {collection.label}
-    </a>
-  ));
+  const CollectionLinks = ({ collections }) => {
+    if (!collections) {
+      return <h1> loading </h1>;
+    } else {
+      return (
+        <>
+          {collections.map((collective) => {
+            return (
+              <>
+                <Link
+                  to={`/collective/${collective.slug}`}
+                  key={collective.name}
+                  className={classes.collectionLink}
+                >
+                  <span style={{ marginRight: 9, fontSize: 16 }}>
+                    {" "}
+                    <img src={collective.logo_url} width={23} />
+                  </span>{" "}
+                  {collective.name}
+                </Link>
+              </>
+            );
+          })}
+        </>
+      );
+    }
+  };
 
   return (
     <Navbar
@@ -245,12 +282,21 @@ export function ApplicationNav({ opened }) {
             Collections
           </Text>
           <Tooltip label="Create collective" withArrow position="right">
-            <ActionIcon variant="default" size={18} component={Link} to="/create/collecives">
+            <ActionIcon
+              variant="default"
+              size={18}
+              component={Link}
+              to="/create/collecives"
+            >
               <Plus size={12} />
             </ActionIcon>
           </Tooltip>
         </Group>
-        <div className={classes.collections}>{collectionLinks}</div>
+        {collectives ? (
+          <div className={classes.collections}><CollectionLinks collections={collectives}/></div>
+        ) : (
+          <> </>
+        )}
       </Navbar.Section>
     </Navbar>
   );

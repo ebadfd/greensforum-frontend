@@ -27,7 +27,7 @@ import Collectives from "./pages/collecives";
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
 import { Skeleton } from "@mantine/core";
-import CreateCollective from "./pages/v2/create.collective"
+import CreateCollective from "./pages/v2/create.collective";
 
 function Router() {
   let routes = useRoutes([
@@ -47,8 +47,11 @@ function Router() {
     },
     {
       path: "/",
-      element:        <RequireAuth>
- <ApplicationLayout mainContent={<HomePagev2 />} /> </RequireAuth>,
+      element: (
+        <RequireAuth>
+          <ApplicationLayout mainContent={<HomePagev2 />} />{" "}
+        </RequireAuth>
+      ),
     },
 
     {
@@ -106,10 +109,19 @@ function Router() {
     },
     { path: "tag/:slug", element: <QuestionsTagged /> },
 
-    { path: "profile", element: <ApplicationLayout mainContent={<UserProfile />}/> },
-    { path: "user/unaproved", element: <ApplicationLayout mainContent={<UserUnaprovedPosts /> } />},
+    {
+      path: "profile",
+      element: <ApplicationLayout mainContent={<UserProfile />} />,
+    },
+    {
+      path: "user/unaproved",
+      element: <ApplicationLayout mainContent={<UserUnaprovedPosts />} />,
+    },
 
-    { path: "settings", element: <ApplicationLayout mainContent={<Settings />} /> },
+    {
+      path: "settings",
+      element: <ApplicationLayout mainContent={<Settings />} />,
+    },
   ]);
 
   return routes;
@@ -122,7 +134,12 @@ function RequireAuth({ children }) {
   let valid_token = isValidToken();
 
   if (!valid_token) {
-    return <h1> please login from <a href="/login"> here </a></h1>;
+    return (
+      <h1>
+        {" "}
+        please login from <a href="/login"> here </a>
+      </h1>
+    );
   }
 
   const getUser = async () => {

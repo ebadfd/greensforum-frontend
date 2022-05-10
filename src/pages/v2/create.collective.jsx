@@ -66,7 +66,6 @@ export default function CreateCollective() {
     }
 
     console.log(data);
-    /* submit the form */
 
     const tokens = getAuthStorage();
 
@@ -82,7 +81,6 @@ export default function CreateCollective() {
       redirect: "follow",
     };
 
-    /*
 
     fetch(`${config.v1}collectives/create`, requestOptions)
       .then((result) => result.json())
@@ -104,7 +102,6 @@ export default function CreateCollective() {
           });
         }
       });
-      */
 
     console.log(values);
   };

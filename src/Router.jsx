@@ -29,6 +29,7 @@ import { isValidToken } from "./authtoken";
 import { Skeleton } from "@mantine/core";
 import CreateCollective from "./pages/v2/create.collective";
 import ApplyForMod from "./pages/user.mod.apply"
+import { LandingPage } from "./pages/landing"
 
 function Router() {
   let routes = useRoutes([
@@ -41,6 +42,7 @@ function Router() {
       ),
     },
     { path: "login", element: <Login /> },
+    { path: "about", element: <LandingPage /> },
     { path: "register", element: <Register /> },
     {
       path: "search",
@@ -141,10 +143,7 @@ function RequireAuth({ children }) {
 
   if (!valid_token) {
     return (
-      <h1>
-        {" "}
-        please login from <a href="/login"> here </a>
-      </h1>
+            <LandingPage />
     );
   }
 
@@ -160,7 +159,9 @@ function RequireAuth({ children }) {
 
   if (!waiting) {
     if (!user) {
-      return <h1> invalid token </h1>;
+        return(
+            <LandingPage />
+        )
     }
   }
 

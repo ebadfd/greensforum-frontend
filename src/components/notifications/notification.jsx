@@ -77,11 +77,7 @@ function NoficationContent() {
   }
 }
 
-export function NotificationPopOver({ user }) {
-  const [values, setValues] = useState({
-    name: "Bob Handsome",
-    email: "bob@handsome.inc",
-  });
+export function NotificationPopOver() {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
 
@@ -105,7 +101,6 @@ export function NotificationPopOver({ user }) {
         }
       >
         <NoficationContent
-          initialValues={values}
           onCancel={() => setOpened(false)}
           onSubmit={(data) => {
             setValues(data);

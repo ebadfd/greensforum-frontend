@@ -36,7 +36,7 @@ export default function HomePagev2() {
               <h1> Top Questions For You </h1>
 
               <Group>
-                <Button component={Link} to="/questions" variant="default" >
+                <Button component={Link} to="/questions" variant="default">
                   Browse Questions
                 </Button>
 

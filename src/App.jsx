@@ -72,7 +72,7 @@ function App() {
               <TextInput
                 placeholder="Search Questions"
                 variant="default"
-                size="xl"
+                size="md"
                 icon={<Search size={20} />}
                 name="q"
                 rightSectionWidth={90}

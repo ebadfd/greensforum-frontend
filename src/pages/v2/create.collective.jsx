@@ -42,16 +42,6 @@ export default function CreateCollective() {
       setOpened(true);
       return;
     }
-    // check if post body is empty
-    if (value == "<p><br></p>") {
-      setappErrors({
-        error: "Validation Error",
-        details:
-          "post body is empty. make sure you have content on the post body",
-      });
-      setSuccess(false);
-      return;
-    }
 
     let tags = values.tags.split(",");
 
@@ -59,13 +49,23 @@ export default function CreateCollective() {
       name: values.name,
       slug: values.slug,
       logo_url: values.logo_url,
-      description: value.descrption,
+      description: values.description,
       website: values.website,
       gh: values.gh,
       twitter: values.twitter,
       tags: tags,
     };
 
+    if (!data.description) {
+      showNotification({
+        title: "Error!",
+        message: "description missing",
+        color: "red",
+      });
+      return;
+    }
+
+    console.log(data);
     /* submit the form */
 
     const tokens = getAuthStorage();
@@ -81,6 +81,8 @@ export default function CreateCollective() {
       body: raw,
       redirect: "follow",
     };
+
+    /*
 
     fetch(`${config.v1}collectives/create`, requestOptions)
       .then((result) => result.json())
@@ -102,6 +104,7 @@ export default function CreateCollective() {
           });
         }
       });
+      */
 
     console.log(values);
   };

@@ -257,7 +257,7 @@ export default function UserProfile() {
                 fullWidth
                 mt="md"
                 component={Anchor}
-        color="green"
+                color="green"
                 href="https://en.gravatar.com/"
               >
                 Update profile Picture

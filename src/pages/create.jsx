@@ -103,147 +103,141 @@ export default function CreatePost() {
       >
         <LoginForm />
       </Modal>
-      <Paper p="md">
-        <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
-            <Group position="apart">
-              <h1> Ask a public question </h1>
-            </Group>
-          </Grid.Col>
-        </Grid>
+      <Grid>
+        <Grid.Col span={1}>{}</Grid.Col>
+        <Grid.Col span={7}>
+          <Group position="apart">
+            <h1> Ask a public question </h1>
+          </Group>
+        </Grid.Col>
+      </Grid>
 
-        <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
-            <form
-              onSubmit={form.onSubmit((values) => HandlePostCreation(values))}
-            >
-              <Paper shadow="xl" p="md" withBorder>
-                {appErrors ? (
-                  <>
-                    <Notification
-                      title={appErrors.error}
-                      disallowClose
-                      color="red"
-                      mb={20}
-                      icon={<X size={18} />}
-                    >
-                      {appErrors.details}
-                    </Notification>
-                  </>
-                ) : (
-                  <></>
-                )}
+      <Grid>
+        <Grid.Col span={1}>{}</Grid.Col>
+        <Grid.Col span={7}>
+          <form
+            onSubmit={form.onSubmit((values) => HandlePostCreation(values))}
+          >
+            <Paper shadow="xl" p="md" withBorder>
+              {appErrors ? (
+                <>
+                  <Notification
+                    title={appErrors.error}
+                    disallowClose
+                    color="red"
+                    mb={20}
+                    icon={<X size={18} />}
+                  >
+                    {appErrors.details}
+                  </Notification>
+                </>
+              ) : (
+                <></>
+              )}
 
-                {success ? (
-                  <>
-                    <Notification
-                      icon={<Check size={18} />}
-                      mb={20}
-                      color="teal"
-                      title="Question added successfully!!"
-                      disallowClose
-                    >
-                      Your question has been added successfully. thanks for your
-                      contribution
-                    </Notification>
-                  </>
-                ) : (
-                  <></>
-                )}
-                <Text weight={500} size="lg" mb={10}>
-                  {" "}
-                  Title{" "}
-                </Text>
-                <TextInput
-                  placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-                  variant="default"
-                  mb={"md"}
-                  {...form.getInputProps("title")}
-                />
+              {success ? (
+                <>
+                  <Notification
+                    icon={<Check size={18} />}
+                    mb={20}
+                    color="teal"
+                    title="Question added successfully!!"
+                    disallowClose
+                  >
+                    Your question has been added successfully. thanks for your
+                    contribution
+                  </Notification>
+                </>
+              ) : (
+                <></>
+              )}
+              <Text weight={500} size="lg" mb={10}>
+                {" "}
+                Title{" "}
+              </Text>
+              <TextInput
+                placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+                variant="default"
+                mb={"md"}
+                {...form.getInputProps("title")}
+              />
 
-                <Text size="xs">
-                  Be specific and imagine you’re asking a question to another
-                  person{" "}
-                </Text>
+              <Text size="xs">
+                Be specific and imagine you’re asking a question to another
+                person{" "}
+              </Text>
 
-                <br />
+              <br />
 
-                <Text weight={500} size="lg" mb={10}>
-                  Body{" "}
-                </Text>
+              <Text weight={500} size="lg" mb={10}>
+                Body{" "}
+              </Text>
 
-                <RichTextEditor value={value} onChange={onChange} />
-                <br />
-                <Text size="xs">
-                  Include all the information someone would need to answer your
-                  question{" "}
-                </Text>
+              <RichTextEditor value={value} onChange={onChange} />
+              <br />
+              <Text size="xs">
+                Include all the information someone would need to answer your
+                question{" "}
+              </Text>
 
-                <br />
+              <br />
 
-                <Text weight={500} size="lg" mb={10}>
-                  Tags
-                </Text>
-                <TextInput
-                  placeholder="e.g. (sql-server,ajax,css)"
-                  variant="default"
-                  mb={"md"}
-                  {...form.getInputProps("tags")}
-                />
+              <Text weight={500} size="lg" mb={10}>
+                Tags
+              </Text>
+              <TextInput
+                placeholder="e.g. (sql-server,ajax,css)"
+                variant="default"
+                mb={"md"}
+                {...form.getInputProps("tags")}
+              />
 
-                <Text size="xs">describe what your question is about</Text>
-              </Paper>
+              <Text size="xs">describe what your question is about</Text>
+            </Paper>
 
-              <Button size="sm" mt={20} type="submit">
-                Post your Question
-              </Button>
-            </form>
-          </Grid.Col>
-          <Grid.Col span={2}>
-            <div style={{ width: 340, margin: "auto" }}>
-              <Paper shadow="xl" p="md" withBorder>
-                <Text>
-                  {" "}
-                  The community is here to help you with specific problem
-                  related to your university work.Avoid asking opinion-based
-                  questions.{" "}
-                </Text>
+            <Button size="sm" mt={20} type="submit">
+              Post your Question
+            </Button>
+          </form>
+        </Grid.Col>
+        <Grid.Col span={2}>
+          <div style={{ width: 340, margin: "auto" }}>
+            <Paper shadow="xl" p="md" withBorder>
+              <Text>
+                {" "}
+                The community is here to help you with specific problem related
+                to your university work.Avoid asking opinion-based questions.{" "}
+              </Text>
 
-                <br />
+              <br />
 
-                <Accordion>
-                  <Accordion.Item label="Summarize the problem">
-                    <List>
-                      <List.Item>Include details about your goal</List.Item>
+              <Accordion>
+                <Accordion.Item label="Summarize the problem">
+                  <List>
+                    <List.Item>Include details about your goal</List.Item>
 
-                      <List.Item>
-                        {" "}
-                        Describe expected and actual results
-                      </List.Item>
+                    <List.Item> Describe expected and actual results</List.Item>
 
-                      <List.Item>Include any error messages </List.Item>
-                    </List>
-                  </Accordion.Item>
+                    <List.Item>Include any error messages </List.Item>
+                  </List>
+                </Accordion.Item>
 
-                  <Accordion.Item label="Describe what you’ve tried">
-                    Show what you’ve tried and tell us what you found (on this
-                    site or elsewhere) and why it didn’t meet your needs. You
-                    can get better answers when you provide research.
-                  </Accordion.Item>
+                <Accordion.Item label="Describe what you’ve tried">
+                  Show what you’ve tried and tell us what you found (on this
+                  site or elsewhere) and why it didn’t meet your needs. You can
+                  get better answers when you provide research.
+                </Accordion.Item>
 
-                  <Accordion.Item label="Show some example">
-                    When appropriate, share the minimum amount of code others
-                    need to reproduce your problem (also called a minimum,
-                    reproducible example)
-                  </Accordion.Item>
-                </Accordion>
-              </Paper>
-            </div>
-          </Grid.Col>
-        </Grid>
-      </Paper>
+                <Accordion.Item label="Show some example">
+                  When appropriate, share the minimum amount of code others need
+                  to reproduce your problem (also called a minimum, reproducible
+                  example)
+                </Accordion.Item>
+              </Accordion>
+            </Paper>
+          </div>
+        </Grid.Col>
+      </Grid>
     </>
   );
 }

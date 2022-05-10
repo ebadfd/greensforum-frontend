@@ -115,7 +115,7 @@ export function LoginForm() {
             mt="md"
             {...form.getInputProps("password")}
           />
-          <Button fullWidth mt="xl" type="submit">
+          <Button fullWidth mt="xl" type="submit" color="green">
             Sign in
           </Button>
 

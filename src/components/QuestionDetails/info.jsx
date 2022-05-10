@@ -142,7 +142,7 @@ export default function DisplayPostDetails({ loading, question }) {
 
                     <Group mt={20}>
                       {question.tags.map((tag) => {
-                        return <Badge>{tag.name}</Badge>;
+                        return <Badge color="green">{tag.name}</Badge>;
                       })}
                     </Group>
 

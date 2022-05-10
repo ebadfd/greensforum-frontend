@@ -31,7 +31,7 @@ export default function UnaprovedPosts() {
   }, []);
 
   return (
-    <Container my="md">
+    <Container my="xl">
       <h1> Unaproved posts for {slug}.</h1>
       <SimpleGrid cols={1} breakpoints={[{ maxWidth: "xs", cols: 1 }]}>
         {loading ? (

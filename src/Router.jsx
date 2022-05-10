@@ -5,9 +5,7 @@ import HomePage from "./pages/index";
 import Login from "./pages/login";
 import Post from "./pages/post";
 import Register from "./pages/register";
-import SearchPage from "./pages/search";
-import CreatePost from "./pages/create";
-import Collectives from "./pages/collecives";
+
 import CollectiveInformation from "./pages/collective.info";
 import QuestionsTagged from "./pages/questiontags";
 import DisplayAllQuestions from "./pages/allquestions";
@@ -18,15 +16,24 @@ import CreateArticleOnCollective from "./pages/collective.article.write";
 import UnaprovedPosts from "./pages/collective.unaproved.post";
 import UserUnaprovedPosts from "./pages/user.unaproved.post";
 import Settings from "./pages/settings";
+
+// new components for v2
 import ApplicationLayout from "./layouts/index";
+import HomePagev2 from "./pages/v2/index";
+import CreatePost from "./pages/v2/create";
+import SearchPage from "./pages/search";
+import Collectives from "./pages/collecives";
 
 import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
+import { Skeleton } from "@mantine/core";
+import CreateCollective from "./pages/v2/create.collective";
+import ApplyForMod from "./pages/user.mod.apply"
 
 function Router() {
   let routes = useRoutes([
     {
-      path: "/",
+      path: "/old/",
       element: (
         <RequireAuth>
           <HomePage />
@@ -35,29 +42,92 @@ function Router() {
     },
     { path: "login", element: <Login /> },
     { path: "register", element: <Register /> },
-    { path: "search", element: <SearchPage /> },
-    { path: "test", element: <ApplicationLayout /> },
+    {
+      path: "search",
+      element: <ApplicationLayout mainContent={<SearchPage />} />,
+    },
+    {
+      path: "/",
+      element: (
+        <RequireAuth>
+          <ApplicationLayout mainContent={<HomePagev2 />} />{" "}
+        </RequireAuth>
+      ),
+    },
 
-    { path: "create", element: <CreatePost /> },
-    { path: "collecives", element: <Collectives /> },
-    { path: "questions", element: <DisplayAllQuestions /> },
-    { path: "question/:slug", element: <Post /> },
-    { path: "post/:slug", element: <CollectivePost /> },
+    {
+      path: "collecives",
+      element: <ApplicationLayout mainContent={<Collectives />} />,
+    },
 
-    { path: "tag/:slug", element: <QuestionsTagged /> },
-    { path: "profile", element: <UserProfile /> },
-    { path: "user/unaproved", element: <UserUnaprovedPosts /> },
+    {
+      path: "create/collecives",
+      element: <ApplicationLayout mainContent={<CreateCollective />} />,
+    },
 
-    { path: "settings", element: <Settings /> },
-
-    { path: "collective/:slug", element: <CollectiveInformation /> },
-    { path: "collective/:slug/unaproved", element: <UnaprovedPosts /> },
-
+    {
+      path: "collective/:slug",
+      element: <ApplicationLayout mainContent={<CollectiveInformation />} />,
+    },
+    {
+      path: "collective/:slug/unaproved",
+      element: <ApplicationLayout mainContent={<UnaprovedPosts />} />,
+    },
+    {
+      path: "collective/:slug/members",
+      element: <ApplicationLayout mainContent={<MembersofCollective />} />,
+    },
     {
       path: "collective/:slug/article/write",
       element: <CreateArticleOnCollective />,
     },
-    { path: "collective/:slug/members", element: <MembersofCollective /> },
+
+    {
+      path: "post/:slug",
+      element: <ApplicationLayout mainContent={<CollectivePost />} />,
+    },
+    { path: "create", element: <CreatePost /> },
+
+    {
+      path: "questions",
+      element: (
+        <ApplicationLayout
+          mainContent={<DisplayAllQuestions />}
+          displaySideBar={true}
+          SideBarDisplayComponent={<NothingHereYet />}
+        />
+      ),
+    },
+    {
+      path: "question/:slug",
+      element: (
+        <ApplicationLayout
+          mainContent={<Post />}
+          displaySideBar={true}
+          SideBarDisplayComponent={<p> sudgest posts </p>}
+        />
+      ),
+    },
+    { path: "tag/:slug", element: <QuestionsTagged /> },
+
+    {
+      path: "profile",
+      element: <ApplicationLayout mainContent={<UserProfile />} />,
+    },
+    {
+      path: "user/unaproved",
+      element: <ApplicationLayout mainContent={<UserUnaprovedPosts />} />,
+    },
+
+    {
+      path: "settings",
+      element: <ApplicationLayout mainContent={<Settings />} />,
+    },
+      {
+          path:"user/mod/apply",
+          element:<ApplicationLayout mainContent={<ApplyForMod />} />,
+
+      },
   ]);
 
   return routes;
@@ -70,7 +140,12 @@ function RequireAuth({ children }) {
   let valid_token = isValidToken();
 
   if (!valid_token) {
-    return <h1> please login </h1>;
+    return (
+      <h1>
+        {" "}
+        please login from <a href="/login"> here </a>
+      </h1>
+    );
   }
 
   const getUser = async () => {
@@ -90,6 +165,10 @@ function RequireAuth({ children }) {
   }
 
   return children;
+}
+
+function NothingHereYet() {
+  return <Skeleton height={400} />;
 }
 
 export default Router;

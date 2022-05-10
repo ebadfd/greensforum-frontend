@@ -9,6 +9,7 @@ import {
   Group,
   Button,
   ScrollArea,
+  Box,
 } from "@mantine/core";
 
 import ForumCard from "../components/ForumCard/card";
@@ -18,6 +19,7 @@ import DisplayQuestions from "../components/render/displayquestions";
 import { Link } from "react-router-dom";
 import { GetQuestionsTags } from "../services/question.tag";
 import { useParams } from "react-router-dom";
+import ApplicationLayout from "../layouts";
 
 export default function QuestionsTagged() {
   const [questions, setQuestions] = useState(null);
@@ -38,24 +40,42 @@ export default function QuestionsTagged() {
 
   if (!questions) {
     return <h1> 404 </h1>;
-  } else {
-    return (
-      <Paper p="md">
+  }
+
+  return (
+    <ApplicationLayout
+      mainContent={
+        <DisplayInformation
+          questions={questions}
+          loading={loading}
+          slug={slug}
+        />
+      }
+      displaySideBar={true}
+      SideBarDisplayComponent={
+        <GetPostsRealated questions={questions} loading={loading} slug={slug} />
+      }
+    />
+  );
+}
+
+function DisplayInformation({ questions, loading, slug }) {
+  return (
+    <>
+      <Box p={20}>
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
+          <Grid.Col span={12}>
             <Group position="apart">
               <h1> Questions tagged [{slug}] </h1>
-              <Button component={Link} to="/create">
-                Ask Question{" "}
+              <Button component={Link} to="/create" color="green">
+                Ask Question
               </Button>
             </Group>
           </Grid.Col>
         </Grid>
 
         <Grid>
-          <Grid.Col span={2}>{}</Grid.Col>
-          <Grid.Col span={7}>
+          <Grid.Col span={12}>
             <DisplayQuestions
               questions={questions.Questions}
               loading={loading}
@@ -63,45 +83,53 @@ export default function QuestionsTagged() {
             />
           </Grid.Col>
           <Grid.Col span={2}>
-            <Text component="span" align="center" size="xl" weight={700}>
-              Posts related.
-            </Text>
-            <ScrollArea style={{ height: 700 }} mt={20}>
-              {loading ? (
-                <>
-                  {[...Array(10)].map(() => (
-                    <LoadingPost />
-                  ))}
-                </>
-              ) : (
-                <>
-                  {questions.posts.length > 0 ? (
-                    <>
-                      {questions.posts.map((q) => {
-                        return (
-                          <>
-                            <Paper shadow="xl" p="sm" withBorder mb={10}>
-                              <Anchor component={Link} to={`/post/${q.slug}`}>
-                                {" "}
-                                {q.title}
-                              </Anchor>
-                              <Text size="xs" lineClamp={2}>
-                                {q.body}
-                              </Text>
-                            </Paper>
-                          </>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <Text size="xs">no posts found.</Text>
-                  )}
-                </>
-              )}
-            </ScrollArea>
+            <ScrollArea style={{ height: 700 }} mt={20}></ScrollArea>
           </Grid.Col>
         </Grid>
-      </Paper>
-    );
-  }
+      </Box>
+    </>
+  );
+}
+
+function GetPostsRealated({ loading, questions }) {
+  return (
+    <>
+      <Text component="span" size="xl" weight={700} mb={20}>
+        Posts related.
+      </Text>
+
+      <ScrollArea>
+        {loading ? (
+          <>
+            {[...Array(10)].map(() => (
+              <LoadingPost />
+            ))}
+          </>
+        ) : (
+          <>
+            {questions.posts.length > 0 ? (
+              <>
+                {questions.posts.map((q) => {
+                  return (
+                    <>
+                      <Paper shadow="xl" p="sm" withBorder mb={10}>
+                        <Anchor component={Link} to={`/post/${q.slug}`}>
+                          {q.title}
+                        </Anchor>
+                        <Text size="xs" lineClamp={2}>
+                          {q.body}
+                        </Text>
+                      </Paper>
+                    </>
+                  );
+                })}
+              </>
+            ) : (
+              <Text size="xs">no posts found.</Text>
+            )}
+          </>
+        )}
+      </ScrollArea>
+    </>
+  );
 }

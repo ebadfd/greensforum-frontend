@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Grid, Skeleton, Group, Button } from "@mantine/core";
+import { Paper, Grid, Skeleton, Group, Button, Box } from "@mantine/core";
 
 import { AllQuestions } from "../services/post.search";
 import { Link } from "react-router-dom";
@@ -21,34 +21,30 @@ export default function DisplayAllQuestions() {
     console.log(questions);
   }, []);
 
-  const height = 400;
   return (
-    <Paper p="md">
-      <Grid>
-        <Grid.Col span={2}>{}</Grid.Col>
-        <Grid.Col span={7}>
-          <Group position="apart">
-            <h1> All Questions </h1>
-            <Button component={Link} to="/create">
-              Ask Question
-            </Button>
-          </Group>
-        </Grid.Col>
-      </Grid>
+    <>
+      <Box p={20}>
+        <Grid>
+          <Grid.Col span={12}>
+            <Group position="apart">
+              <h1> All Questions </h1>
+              <Button component={Link} to="/create" color={"green"}>
+                Ask Question
+              </Button>
+            </Group>
+          </Grid.Col>
+        </Grid>
 
-      <Grid>
-        <Grid.Col span={2}>{}</Grid.Col>
-        <Grid.Col span={7}>
-          <DisplayQuestions
-            loading={loading}
-            questions={questions}
-            notfound={" no results found."}
-          />
-        </Grid.Col>
-        <Grid.Col span={2}>
-          <Skeleton height={height} />
-        </Grid.Col>
-      </Grid>
-    </Paper>
+        <Grid>
+          <Grid.Col span={12}>
+            <DisplayQuestions
+              loading={loading}
+              questions={questions}
+              notfound={" no results found."}
+            />
+          </Grid.Col>
+        </Grid>
+      </Box>
+    </>
   );
 }

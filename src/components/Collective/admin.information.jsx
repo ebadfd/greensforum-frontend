@@ -46,7 +46,6 @@ export function AdminInformation({ admins, loading, slug }) {
           <Menu.Label>Details</Menu.Label>
           <Menu.Item icon={<Alien size={14} />}>
             <UnstyledButton component={Link} to={`/collective/${slug}/members`}>
-              {" "}
               Members
             </UnstyledButton>
           </Menu.Item>

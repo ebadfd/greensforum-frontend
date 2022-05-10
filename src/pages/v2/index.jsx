@@ -36,12 +36,12 @@ export default function HomePagev2() {
               <h1> Top Questions For You </h1>
 
               <Group>
-                <Button component={Link} to="/create" variant="default">
+                <Button component={Link} to="/questions" variant="default" >
                   Browse Questions
                 </Button>
 
-                <Button component={Link} to="/create">
-                  Ask Question{" "}
+                <Button component={Link} to="/create" color="green">
+                  Ask Question
                 </Button>
               </Group>
             </Group>

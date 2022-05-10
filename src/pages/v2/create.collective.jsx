@@ -202,7 +202,7 @@ export default function CreateCollective() {
               />
             </Paper>
 
-            <Button size="sm" mt={20} type="submit">
+            <Button size="sm" mt={20} type="submit" color="green">
               Request Creation for collective
             </Button>
           </form>

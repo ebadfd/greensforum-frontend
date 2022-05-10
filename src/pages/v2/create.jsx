@@ -193,7 +193,7 @@ function Editor() {
           <Text size="xs">describe what your question is about</Text>
         </Paper>
 
-        <Button size="sm" mt={20} type="submit">
+        <Button size="sm" mt={20} type="submit" color="green">
           Post your Question
         </Button>
       </form>

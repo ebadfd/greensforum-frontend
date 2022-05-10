@@ -73,6 +73,7 @@ function ForumCard({ props }) {
                     return (
                       <Badge
                         variant="dot"
+                        color="green"
                         component={Link}
                         to={`/tag/${item.name}`}
                       >

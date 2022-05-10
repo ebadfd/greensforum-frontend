@@ -92,10 +92,8 @@ export default function Post() {
                     </>
                   ) : (
                     <Text>
-                      {" "}
                       Browse other{" "}
                       <Anchor component={Link} to="/questions/all">
-                        {" "}
                         questions{" "}
                       </Anchor>{" "}
                       , or Ask your own{" "}
@@ -107,12 +105,10 @@ export default function Post() {
                 </>
               ) : (
                 <Text>
-                  {" "}
                   Browse other{" "}
                   <Anchor component={Link} to="/questions/all">
-                    {" "}
                     questions{" "}
-                  </Anchor>{" "}
+                  </Anchor>
                   , or Ask your own{" "}
                   <Anchor component={Link} to="/create">
                     question{" "}

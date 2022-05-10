@@ -257,6 +257,7 @@ export default function UserProfile() {
                 fullWidth
                 mt="md"
                 component={Anchor}
+        color="green"
                 href="https://en.gravatar.com/"
               >
                 Update profile Picture
@@ -293,7 +294,7 @@ export default function UserProfile() {
                   mt="md"
                   {...form.getInputProps("description")}
                 />
-                <Button fullWidth mt="xl" type="submit">
+                <Button fullWidth mt="xl" type="submit" color="green">
                   Save
                 </Button>
               </form>

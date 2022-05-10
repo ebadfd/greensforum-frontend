@@ -28,6 +28,7 @@ import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
 import { Skeleton } from "@mantine/core";
 import CreateCollective from "./pages/v2/create.collective";
+import ApplyForMod from "./pages/user.mod.apply"
 
 function Router() {
   let routes = useRoutes([
@@ -122,6 +123,11 @@ function Router() {
       path: "settings",
       element: <ApplicationLayout mainContent={<Settings />} />,
     },
+      {
+          path:"user/mod/apply",
+          element:<ApplicationLayout mainContent={<ApplyForMod />} />,
+
+      },
   ]);
 
   return routes;

@@ -38,10 +38,11 @@ export default function MembersofCollective() {
                   component={Link}
                   to={`/collective/${slug}/article/write`}
                   variant="outline"
+        color="green"
                 >
                   Submit a Article
                 </Button>
-                <Button component={Link} to="/create" variant="outline">
+                <Button component={Link} to="/create" variant="outline" color="green">
                   Ask Question
                 </Button>
 

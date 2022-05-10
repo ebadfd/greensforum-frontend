@@ -36,14 +36,14 @@ export function TableScrollArea({ data, slug, dissableAction }) {
   const rows = data.map((row) => (
     <tr key={row.id}>
       <td>
-        <Anchor component={Link} to={`/post/${row.slug}`}>
+        <Anchor component={Link} to={`/post/${row.slug}`} color="green">
           {" "}
           {row.title}{" "}
         </Anchor>{" "}
       </td>
       <td>{new Date(row.created_at).toDateString()} </td>
       <td>
-        <Anchor component={Link} to={`/u/${row.created_user}`}>
+        <Anchor component={Link} to={`/u/${row.created_user}`} color="green">
           {row.created_user}{" "}
         </Anchor>{" "}
       </td>

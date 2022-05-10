@@ -67,7 +67,7 @@ function DisplayInformation({ questions, loading, slug }) {
           <Grid.Col span={12}>
             <Group position="apart">
               <h1> Questions tagged [{slug}] </h1>
-              <Button component={Link} to="/create">
+              <Button component={Link} to="/create" color="green">
                 Ask Question
               </Button>
             </Group>

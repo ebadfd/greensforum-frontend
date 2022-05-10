@@ -26,7 +26,7 @@ function ForumCard({ props }) {
             <Text size="sm">{props.up_vote_count} votes</Text>
           </Grid.Col>
           <Grid.Col span={18}>
-            <Anchor href={`/question/${props.slug}`}>
+            <Anchor href={`/question/${props.slug}`} color="green">
               <Text weight={500} className="textTitle" lineClamp={1}>
                 {props.title}
               </Text>

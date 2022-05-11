@@ -8,6 +8,8 @@ import { ImageActionBanner } from "../components/collectiveCard/newcard";
 
 import { AdminInformation } from "../components/Collective/admin.information";
 
+import { isJoined } from "../utils/ismember";
+
 export default function MembersofCollective() {
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -65,7 +67,11 @@ export default function MembersofCollective() {
           <Grid.Col span={12}>
             <Grid grow gutter="xs">
               <Grid.Col span={1}>
-                <ImageActionBanner props={questions} isBig={true} />
+                <ImageActionBanner
+                  props={questions}
+                  isBig={true}
+                  joined={isJoined(questions)}
+                />
               </Grid.Col>
             </Grid>
           </Grid.Col>

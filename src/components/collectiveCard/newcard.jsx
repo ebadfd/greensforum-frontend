@@ -8,6 +8,10 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 
+import { isValidToken, getAuthStorage } from "../../authtoken";
+import { config } from "../../config";
+import { showNotification } from "@mantine/notifications";
+
 const useStyles = createStyles((theme) => ({
   card: {
     height: 240,
@@ -47,7 +51,53 @@ export function ImageActionBanner({ props, isBig, joined }) {
   const theme = useMantineTheme();
 
   const JoinCollective = (slug) => {
-    alert(slug);
+    if (!isValidToken()) {
+      showNotification({
+        title: "Invalid token.",
+        message: "the token is invalid or timeout please login again",
+        color: "red",
+      });
+      return;
+    }
+    const tokens = getAuthStorage();
+
+    if (!tokens) {
+      showNotification({
+        title: "Invalid token.",
+        message: "the token is invalid or timeout please login again",
+        color: "red",
+      });
+      return;
+    }
+
+    let reqHeaders = new Headers();
+    reqHeaders.append("Authorization", `Bearer ${tokens.auth_token}`);
+
+    let requestOptions = {
+      method: "POST",
+      headers: reqHeaders,
+      redirect: "follow",
+    };
+
+    fetch(`${config.v1}collectives/${slug}/join`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.error) {
+          showNotification({
+            title: result.error,
+            message: result.details,
+            color: "red",
+          });
+          return;
+        }
+
+        showNotification({
+          title: "Joined Successfully",
+          message: "joind successfully to the collective",
+          color: "green",
+        });
+      })
+      .catch((error) => console.log("error", error));
   };
 
   return (

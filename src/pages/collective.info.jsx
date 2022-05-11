@@ -21,6 +21,7 @@ import { PostCard } from "../components/post/post.card";
 import { ArticleCardImage } from "../components/collectiveCard/about.side.card";
 
 import { AdminInformation } from "../components/Collective/admin.information";
+import { isJoined } from "../utils/ismember";
 
 export default function CollectiveInformation() {
   const [questions, setQuestions] = useState(null);
@@ -81,7 +82,11 @@ export default function CollectiveInformation() {
 
         <Grid mt={10}>
           <Grid.Col span={12}>
-            <ImageActionBanner props={questions} isBig={true} />
+            <ImageActionBanner
+              props={questions}
+              isBig={true}
+              joined={isJoined(questions)}
+            />
           </Grid.Col>
         </Grid>
 

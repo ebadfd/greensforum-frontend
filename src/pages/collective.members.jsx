@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Grid, Text, Group, Button } from "@mantine/core";
+import { Paper, Grid, Text, Group, Button, SimpleGrid } from "@mantine/core";
 
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -77,18 +77,54 @@ export default function MembersofCollective() {
             <Text weight={700} size="xl" mt={20} mb={10}>
               Members of {slug}
             </Text>
-            <Text size="sm" mb={10}>
-              View members of {slug}
-            </Text>
           </Grid.Col>
         </Grid>
 
         <Grid>
           <Grid.Col span={2}>{}</Grid.Col>
           <Grid.Col span={7}>
-            <Text size="sm" mb={10}>
-              members will be here
-            </Text>
+            <SimpleGrid cols={3}>
+              {questions.Members.length > 0 ? (
+                <>
+                  {questions.Members.map((member) => {
+                    return (
+                      <Paper
+                        radius="md"
+                        withBorder
+                        p="lg"
+                        sx={(theme) => ({
+                          backgroundColor:
+                            theme.colorScheme === "dark"
+                              ? theme.colors.dark[8]
+                              : theme.white,
+                        })}
+                      >
+                        <Text align="center" size="lg" weight={500} mt="md">
+                          {member.username}
+                        </Text>
+                        <Text align="center" color="dimmed" size="sm">
+                          {member.email}
+                        </Text>
+
+                        <Button
+                          variant="default"
+                          fullWidth
+                          mt="md"
+                          component={Link}
+                          to={`/user/${member.ID}`}
+                        >
+                          view profile
+                        </Button>
+                      </Paper>
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  <h1> no members found </h1>
+                </>
+              )}
+            </SimpleGrid>
           </Grid.Col>
           <Grid.Col span={2}></Grid.Col>
         </Grid>

@@ -42,9 +42,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function ImageActionBanner({ props, isBig }) {
+export function ImageActionBanner({ props, isBig, joined }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
+
+  const JoinCollective = (slug) => {
+    alert(slug);
+  };
 
   return (
     <Card
@@ -86,16 +90,25 @@ export function ImageActionBanner({ props, isBig }) {
           </Button>
         ) : (
           <>
-            <Button
-              className={classes.action}
-              variant="white"
-              color="dark"
-              component="a"
-              size="xs"
-              href={`/collective/${props.slug}`}
-            >
-              Join
-            </Button>
+            {joined ? (
+              <>
+                <Button className={classes.action} color="red" size="xs">
+                  Already Joined
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  className={classes.action}
+                  variant="white"
+                  color="dark"
+                  size="xs"
+                  onClick={() => JoinCollective(props.slug)}
+                >
+                  Join
+                </Button>
+              </>
+            )}
           </>
         )}
       </div>

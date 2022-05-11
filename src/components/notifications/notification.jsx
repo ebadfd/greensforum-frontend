@@ -26,24 +26,28 @@ function NoficationContent() {
   useEffect(() => {
     const tokens = getAuthStorage();
 
-    var headers = new Headers();
-    headers.append("Authorization", `Bearer ${tokens.auth_token}`);
+    if (tokens) {
+      var headers = new Headers();
+      headers.append("Authorization", `Bearer ${tokens.auth_token}`);
 
-    var requestOptions = {
-      method: "GET",
-      headers: headers,
-      redirect: "follow",
-    };
+      var requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
 
-    fetch(`${config.v1}user/nofications`, requestOptions)
-      .then((result) => result.json())
-      .then((data) => {
-        if (data.error) {
-          setAppErrors(data);
-          return;
-        }
-        setNofications(data);
-      });
+      fetch(`${config.v1}user/nofications`, requestOptions)
+        .then((result) => result.json())
+        .then((data) => {
+          if (data.error) {
+            setAppErrors(data);
+            return;
+          }
+          setNofications(data);
+        });
+    } else {
+      setNofications(null);
+    }
   }, []);
 
   if (!nofications) {

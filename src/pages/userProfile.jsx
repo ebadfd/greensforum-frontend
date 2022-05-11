@@ -131,6 +131,7 @@ export default function UserProfile() {
   const requestVerifications = () => {
     console.log("=============== requesting a new verification =============");
 
+
     if (!auth) {
       showNotification({
         title: "Auth error",
@@ -141,7 +142,7 @@ export default function UserProfile() {
     }
 
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${auth.auth}`);
+    headers.append("Authorization", `Bearer ${auth.auth_token}`);
 
     let requestOptions = {
       method: "GET",

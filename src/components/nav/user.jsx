@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { isVerified } from "../../authtoken"
 
 export function UserProfile({ loggedInUser }) {
+    console.log(loggedInUser)
   return (
     <Group position="center">
       <Menu
@@ -85,6 +86,8 @@ export function UserProfile({ loggedInUser }) {
           </UnstyledButton>
         </Menu.Item>
 
+      {loggedInUser ? (
+          <>
       {loggedInUser.verified ? (
         <Menu.Item icon={<Lock size={14} />}>
           <UnstyledButton component={Link} to={`/user/mod/apply`}>
@@ -92,6 +95,12 @@ export function UserProfile({ loggedInUser }) {
           </UnstyledButton>
         </Menu.Item>
       ): (<> </>)}
+
+          </>
+      ) : (
+          <> </>
+      )}
+
 
 
         <Menu.Item

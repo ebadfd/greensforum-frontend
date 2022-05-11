@@ -10,12 +10,14 @@ import {
   useMantineTheme,
   Stack,
   Paper,
+  Anchor,
 } from "@mantine/core";
 
 import { ChevronUp, ChevronDown } from "tabler-icons-react";
 import DOMPurify from "dompurify";
 import { isValidToken, getAuthStorage } from "../../authtoken";
 import { showNotification } from "@mantine/notifications";
+import { Link } from "react-router-dom";
 
 import { config } from "../../config";
 
@@ -146,9 +148,22 @@ export default function DisplayPostDetails({ loading, question }) {
                       })}
                     </Group>
 
-                    <Text size="xs" color="dimmed" mt={30}>
-                      {new Date(question.created_at).toDateString()}
-                    </Text>
+                    <Group>
+                      <Text size="xs" color="dimmed" mt={30}>
+                        {new Date(question.created_at).toDateString()}
+                      </Text>
+
+                      <Text size="xs" color="dimmed" mt={30}>
+                        <Anchor
+                          component={Link}
+                          to={`/user/${question.created_by}`}
+                          size="xs"
+                        >
+                          {" "}
+                          Created by {question.created_by}{" "}
+                        </Anchor>
+                      </Text>
+                    </Group>
                   </Grid.Col>
                 </Grid>
               </Paper>

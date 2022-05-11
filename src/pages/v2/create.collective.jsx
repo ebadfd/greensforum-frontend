@@ -81,7 +81,6 @@ export default function CreateCollective() {
       redirect: "follow",
     };
 
-
     fetch(`${config.v1}collectives/create`, requestOptions)
       .then((result) => result.json())
       .then((data) => {

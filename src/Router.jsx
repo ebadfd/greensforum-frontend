@@ -30,6 +30,9 @@ import { Skeleton } from "@mantine/core";
 import CreateCollective from "./pages/v2/create.collective";
 import ApplyForMod from "./pages/user.mod.apply";
 import { LandingPage } from "./pages/landing";
+import DisplayUsersProfileInformation from "./pages/profile";
+
+// testing
 
 import ViewAllQuestions from "./pages/paginationtest";
 
@@ -135,6 +138,12 @@ function Router() {
     {
       path: "user/mod/apply",
       element: <ApplicationLayout mainContent={<ApplyForMod />} />,
+    },
+    {
+      path: "user/:id",
+      element: (
+        <ApplicationLayout mainContent={<DisplayUsersProfileInformation />} />
+      ),
     },
   ]);
 

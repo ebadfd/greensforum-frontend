@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Table, createStyles, ScrollArea, Button, Anchor } from "@mantine/core";
 import { Link } from "react-router-dom";
 
+import { isValidToken, getAuthStorage } from "../../authtoken";
+import { config } from "../../config";
+import { showNotification } from "@mantine/notifications";
+
 const useStyles = createStyles((theme) => ({
   header: {
     position: "sticky",
@@ -33,6 +37,62 @@ export function TableScrollArea({ data, slug, dissableAction }) {
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
 
+  const approvePost = (slug, post_slug) => {
+    if (!isValidToken()) {
+      showNotification({
+        title: "Invalid token.",
+        message: "the token is invalid or timeout please login again",
+        color: "red",
+      });
+      return;
+    }
+    const tokens = getAuthStorage();
+
+    if (!tokens) {
+      showNotification({
+        title: "Invalid token.",
+        message: "the token is invalid or timeout please login again",
+        color: "red",
+      });
+      return;
+    }
+
+    let reqHeaders = new Headers();
+    reqHeaders.append("Authorization", `Bearer ${tokens.auth_token}`);
+
+    let requestOptions = {
+      method: "POST",
+      headers: reqHeaders,
+      redirect: "follow",
+    };
+
+    // /collectives/go-lang/this-is-my-new-post/approve
+
+    fetch(
+      `${config.v1}collectives/${slug}/${post_slug}/approve`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.error) {
+          showNotification({
+            title: result.error,
+            message: result.details,
+            color: "red",
+          });
+          return;
+        }
+
+        showNotification({
+          title: "post approved successfully",
+          message: "post approved to the collective successfully!",
+          color: "green",
+        });
+        window.location.reload(false);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
   const rows = data.map((row) => (
     <tr key={row.id}>
       <td>
@@ -55,8 +115,7 @@ export function TableScrollArea({ data, slug, dissableAction }) {
             variant="subtle"
             color="teal"
             compact
-            component={Link}
-            to={`/collective/${slug}/${row.slug}/approve`}
+            onClick={() => approvePost(slug, row.slug)}
           >
             Accept
           </Button>

@@ -152,18 +152,6 @@ const links = [
   { icon: User, label: "Collectives", path: "/collecives" },
 ];
 
-const collections = [
-  { emoji: "👍", label: "Sales" },
-  { emoji: "🚚", label: "Deliveries" },
-  { emoji: "💸", label: "Discounts" },
-  { emoji: "💰", label: "Profits" },
-  { emoji: "✨", label: "Reports" },
-  { emoji: "🛒", label: "Orders" },
-  { emoji: "📅", label: "Events" },
-  { emoji: "🙈", label: "Debts" },
-  { emoji: "💁‍♀️", label: "Customers" },
-];
-
 export function ApplicationNav({ opened }) {
   const { classes } = useStyles();
   const [saveUser, setSaveUser] = useLocalStorage({ key: "user" });

@@ -159,7 +159,13 @@ export function PostAnswer({ pid }) {
           </Text>
 
           <Group position="left" mt="md">
-            <Button type="submit" variant="filled" radius="xs" size="sm" color="green">
+            <Button
+              type="submit"
+              variant="filled"
+              radius="xs"
+              size="sm"
+              color="green"
+            >
               Post your answer
             </Button>
           </Group>

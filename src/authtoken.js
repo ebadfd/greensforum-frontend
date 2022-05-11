@@ -92,40 +92,39 @@ const updateTokens = (r_token) => {
 };
 
 export const isAdmin = () => {
-    if(!isValidToken()){
-        return false
-    }
+  if (!isValidToken()) {
+    return false;
+  }
   let user = JSON.parse(localStorage.getItem("user"));
 
-    if(!user){
-        return false
-    }
+  if (!user) {
+    return false;
+  }
 
-    if(!user.verified){
-        return false
-    }
+  if (!user.verified) {
+    return false;
+  }
 
-    if(!user.user_type > 0){
-        return false
-    }
+  if (!user.user_type > 0) {
+    return false;
+  }
 
-    return true
-}
+  return true;
+};
 
-export const isVerified = () =>{
-    if(!isValidToken()){
-        return false
-    }
+export const isVerified = () => {
+  if (!isValidToken()) {
+    return false;
+  }
   let user = JSON.parse(localStorage.getItem("user"));
 
-    if(!user){
-        return false
-    }
+  if (!user) {
+    return false;
+  }
 
-    if(!user.verified){
-        return false
-    }
+  if (!user.verified) {
+    return false;
+  }
 
-    return true
-}
-
+  return true;
+};

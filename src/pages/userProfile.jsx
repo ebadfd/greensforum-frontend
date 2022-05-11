@@ -131,7 +131,6 @@ export default function UserProfile() {
   const requestVerifications = () => {
     console.log("=============== requesting a new verification =============");
 
-
     if (!auth) {
       showNotification({
         title: "Auth error",

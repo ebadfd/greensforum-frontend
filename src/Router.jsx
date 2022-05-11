@@ -28,8 +28,10 @@ import { GetLoggedInUser } from "./services/user.logged";
 import { isValidToken } from "./authtoken";
 import { Skeleton } from "@mantine/core";
 import CreateCollective from "./pages/v2/create.collective";
-import ApplyForMod from "./pages/user.mod.apply"
-import { LandingPage } from "./pages/landing"
+import ApplyForMod from "./pages/user.mod.apply";
+import { LandingPage } from "./pages/landing";
+
+import ViewAllQuestions from "./pages/paginationtest";
 
 function Router() {
   let routes = useRoutes([
@@ -44,6 +46,11 @@ function Router() {
     { path: "login", element: <Login /> },
     { path: "about", element: <LandingPage /> },
     { path: "register", element: <Register /> },
+
+    {
+      path: "p",
+      element: <ApplicationLayout mainContent={<ViewAllQuestions />} />,
+    },
     {
       path: "search",
       element: <ApplicationLayout mainContent={<SearchPage />} />,
@@ -125,11 +132,10 @@ function Router() {
       path: "settings",
       element: <ApplicationLayout mainContent={<Settings />} />,
     },
-      {
-          path:"user/mod/apply",
-          element:<ApplicationLayout mainContent={<ApplyForMod />} />,
-
-      },
+    {
+      path: "user/mod/apply",
+      element: <ApplicationLayout mainContent={<ApplyForMod />} />,
+    },
   ]);
 
   return routes;
@@ -142,9 +148,7 @@ function RequireAuth({ children }) {
   let valid_token = isValidToken();
 
   if (!valid_token) {
-    return (
-            <LandingPage />
-    );
+    return <LandingPage />;
   }
 
   const getUser = async () => {
@@ -159,9 +163,7 @@ function RequireAuth({ children }) {
 
   if (!waiting) {
     if (!user) {
-        return(
-            <LandingPage />
-        )
+      return <LandingPage />;
     }
   }
 

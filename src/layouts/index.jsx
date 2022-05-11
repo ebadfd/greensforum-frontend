@@ -14,7 +14,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { ApplicationNav } from "../components/nav/nav";
-import { NotificationPopOver } from "../components/notifications/notification"
+import { NotificationPopOver } from "../components/notifications/notification";
 
 import { Search } from "tabler-icons-react";
 
@@ -71,7 +71,7 @@ export default function ApplicationLayout({
               <Image radius="sm" height={50} src="/nsbmlogo.svg" />
               <SearhForm />
 
-          <NotificationPopOver />
+              <NotificationPopOver />
             </div>
           </Header>
         </>

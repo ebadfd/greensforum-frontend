@@ -8,6 +8,7 @@ import {
   Logout,
   ChevronRight,
   Lock,
+  CalendarEvent,
 } from "tabler-icons-react";
 import { Link } from "react-router-dom";
 import { isVerified } from "../../authtoken";
@@ -88,11 +89,25 @@ export function UserProfile({ loggedInUser }) {
         {loggedInUser ? (
           <>
             {loggedInUser.verified ? (
-              <Menu.Item icon={<Lock size={14} />}>
-                <UnstyledButton component={Link} to={`/user/mod/apply`}>
-                  Apply for Moderator
-                </UnstyledButton>
-              </Menu.Item>
+              <>
+                {loggedInUser.user_type >= 1 ? (
+                  <>
+                    <Menu.Item icon={<CalendarEvent size={14} />}>
+                      <UnstyledButton component={Link} to={`/events/create`}>
+                        Create a Event
+                      </UnstyledButton>
+                    </Menu.Item>
+                  </>
+                ) : (
+                  <>
+                    <Menu.Item icon={<Lock size={14} />}>
+                      <UnstyledButton component={Link} to={`/user/mod/apply`}>
+                        Apply for Moderator
+                      </UnstyledButton>
+                    </Menu.Item>
+                  </>
+                )}
+              </>
             ) : (
               <> </>
             )}

@@ -4,6 +4,7 @@ import { Paper, Grid, Skeleton, Group, Button, Box, Text } from "@mantine/core";
 import { AllEvents } from "../services/events.all";
 import { Link } from "react-router-dom";
 import LoadingPost from "../components/ForumCard/loading";
+import DOMPurify from "dompurify";
 
 export default function ViewAllEvents() {
   const [events, setEvents] = useState(null);
@@ -57,9 +58,15 @@ export default function ViewAllEvents() {
                             to={`/event/${q.slug}`}
                           >
                             <Text size="lg">{q.name}</Text>
-                            <Text lineClamp={3} mt="20">
-                              {q.description}
-                            </Text>
+
+                            <Text
+                              size="md"
+                              mt={20}
+                              lineClamp={3}
+                              dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(q.description),
+                              }}
+                            />
                           </Paper>
                         </>
                       );

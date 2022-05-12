@@ -1,4 +1,3 @@
-
 import { config } from "../config";
 
 export const AllEvents = async () => {
@@ -15,7 +14,6 @@ export const AllEvents = async () => {
 
   return fetchedData;
 };
-
 
 export const GetEventBySlug = async (slug) => {
   var requestOptions = {

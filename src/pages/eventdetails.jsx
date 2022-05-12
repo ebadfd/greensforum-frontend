@@ -72,7 +72,6 @@ export default function EventDetails() {
               size="md"
               mt={20}
               style={{ color: secondaryColor, lineHeight: 1.5 }}
-              lineClamp={2}
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(event.description),
               }}

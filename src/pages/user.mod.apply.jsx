@@ -43,7 +43,7 @@ export default function ApplyForMod() {
     }
 
     let headers = new Headers();
-    headers.append("Authorization", `Bearer ${auth.auth}`);
+    headers.append("Authorization", `Bearer ${auth.auth_token}`);
 
     let requestOptions = {
       method: "POST",

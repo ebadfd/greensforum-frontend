@@ -31,6 +31,8 @@ import CreateCollective from "./pages/v2/create.collective";
 import ApplyForMod from "./pages/user.mod.apply";
 import { LandingPage } from "./pages/landing";
 import DisplayUsersProfileInformation from "./pages/profile";
+import ViewAllEvents from "./pages/events"
+import EventDetails from "./pages/eventdetails"
 
 // testing
 
@@ -95,9 +97,21 @@ function Router() {
     },
 
     {
+      path: "events",
+      element: <ApplicationLayout mainContent={<ViewAllEvents />} />,
+    },
+
+    {
+      path: "event/:slug",
+      element: <ApplicationLayout mainContent={<EventDetails />} />,
+    },
+
+    {
       path: "post/:slug",
       element: <ApplicationLayout mainContent={<CollectivePost />} />,
     },
+
+
     { path: "create", element: <CreatePost /> },
 
     {

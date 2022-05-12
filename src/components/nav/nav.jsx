@@ -21,6 +21,8 @@ import {
   Search,
   Plus,
   Selector,
+  CalendarEvent,
+  Stack2,
 } from "tabler-icons-react";
 // import { UserProfile } from "./user"
 
@@ -149,7 +151,8 @@ const useStyles = createStyles((theme) => ({
 const links = [
   { icon: Bulb, label: "Feed", notifications: 3, path: "/" },
   { icon: Checkbox, label: "Questions", notifications: 4, path: "/questions" },
-  { icon: User, label: "Collectives", path: "/collecives" },
+  { icon: Stack2, label: "Collectives", path: "/collecives" },
+  { icon: CalendarEvent, label: "Events", path: "/events" },
 ];
 
 export function ApplicationNav({ opened }) {

@@ -10,3 +10,4 @@ upcoming events happening at nsbm swiftly.
 
 frontend is live at 
 https://greenforum.z9fr.xyz/
+

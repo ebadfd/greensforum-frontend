@@ -34,6 +34,8 @@ import DisplayUsersProfileInformation from "./pages/profile";
 import ViewAllEvents from "./pages/events";
 import EventDetails from "./pages/eventdetails";
 import CreateaPublicEvent from "./pages/v2/event.create";
+import PagenotFound from "./pages/404"
+
 
 // testing
 
@@ -161,6 +163,12 @@ function Router() {
         <ApplicationLayout mainContent={<DisplayUsersProfileInformation />} />
       ),
     },
+
+    {
+      path: "/*",
+      element: (<PagenotFound />),
+    },
+
   ]);
 
   return routes;
